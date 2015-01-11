@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         0.8 beta
+// @version         0.9
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -246,8 +246,8 @@ var options = {
                     'padding: 10px 10px 0px 10px;'+
                     '}'+
                 '.n24h_options_body{'+
-                    'display: table;'+
-                    'min-height: 150px;'+
+                    'display: table;'+//
+                    'min-height: 150px;'+//
                     '}'+
                 '.n24h_options_body>input{'+
                     'margin: 0px;'+
@@ -329,11 +329,11 @@ var options = {
         if (!ul)
             return;
         utils.insertcss(css);
-        var li=document.createElement('li');
+        var li=document.createElement('li');    //panel z opcjami
         li.setAttribute('id', 'n24h_options_gear');
         li.setAttribute('title', 'napisy24.pl helper opcje');
         li.addEventListener('click', options.show, false);
-        var img=document.createElement('img');
+        var img=document.createElement('img');    //panel z opcjami
         img.setAttribute('src', icons.gear);
         img.setAttribute('style', 'margin-top: -5px;');
         li.appendChild(img);
@@ -519,13 +519,31 @@ var tlumaczenia = {
                 //Znaleziono dopasowanie.
                 tlumaczenia.moveTop(row);
             } else {
-                //Nie ma dopasowanie
+                //Nie ma dopasowania
                 //Wyczyść na wszelki wypadek gwiazdkę
                 var td=row.querySelector('td[data-n24h-star]');
                 td.setAttribute('data-n24h-star', 'off');
             }
         }
         tlumaczenia.restyleRows();
+    },
+    /**
+        Ustaw informację o kierunku sortowania w nagłówku tabelki
+    */
+    SetColumnHeader: function(col, reverse) {
+        var header=document.querySelectorAll('table#translationsTable>thead>tr>th.header');
+        for (var i=0;i<header.length;i++)
+        {
+            if ((i==col)&&(reverse==1))
+                header[i].setAttribute('class', 'header n24h_sort_asc')
+            else if ((i==col)&&(reverse==-1))
+                header[i].setAttribute('class', 'header n24h_sort_desc')
+            else {
+                var thcl=header[i].getAttribute('class');
+                thcl=thcl.replace(/(n24h_sort_asc|n24h_sort_desc)/, '');
+                header[i].setAttribute('class', thcl);
+            }
+        }
     },
     /**
         Sortowanie tabelki z tłumaczeniami
@@ -563,6 +581,8 @@ var tlumaczenia = {
         //zapisz ustawienia sortowania
         options.setValue('column', col);
         options.setValue('reverse', -((+reverse) || -1));
+        //ustaw nagłówek
+        tlumaczenia.SetColumnHeader(col, reverse);
         //przesuń ulubione na samą górę
         tlumaczenia.FavoriteOnTop();
     },
@@ -863,7 +883,9 @@ var tlumaczenia = {
     */
     AddNewHeader: function() {
         var css='#translationsTable th {cursor: pointer !important;}'+
-                '#translationsTable th.nosort {cursor: default !important;}';
+                '#translationsTable th.nosort {cursor: default !important;}'+
+                '.n24h_sort_asc{background-image: url(run/images/arrsh.png);background-repeat: no-repeat;background-position: right;}'+
+                '.n24h_sort_desc{background-image: url(run/images/arrs.png);background-repeat: no-repeat;background-position: right;}';
         var trtable=document.querySelector('table#translationsTable');
         if (!trtable)
             return;
@@ -1113,10 +1135,11 @@ var misc = {
                 '.moreInfo{background-color:#D5D5D5 !important;color:#000000 !important; border-top: 1px solid #A0A0A0;}'+
                 '.page span{color: #272829;}'+
                 '.infofooter{border-top: 1px solid #A0A0A0 !important;background-color: #D5D5D5 !important;}'+
-                '.infoColumn0{background-color: #D5D5D5 !important;border-right: 1px solid #A0A0A0 !important;border-bottom: 0px !important;border-top: 1px solid #A0A0A0 !important}'+
+                '.infoColumn0{background-color: #D5D5D5 !important;border-right: 1px solid #A0A0A0 !important;border-bottom: 1px solid #A0A0A0 !important;border-top: 1px solid #A0A0A0 !important}'+
                 'section#content .page{color: #272829 !important;}'+
                 'section#content .tbl .subtitle .sub h2{color: #272829 !important;}'+
                 'select {background-color: #C5C5C5;}'+
+                'a, a:link, a:visited {color: #1E519D;}'+
                 /**tłumaczenia*/
                 'table.table-layout thead tr th{background-color: #D5D5D5 !important;color: #272829 !important;border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;}'+
                 'table.table-layout tbody tr.odd td{background-color: #C5C5C5 !important;}'+
@@ -1155,7 +1178,7 @@ var misc = {
         utils.insertcss(css);
         //style
         var selector='a[style*="color: rgb(0,200,0)"]'+         //moderator
-                ', td[style*="background-color:#41d64b"]'+      //uaktualnione w ostatnim czasie
+                ', td[style*="background-color:#255180"]'+      //uaktualnione w ostatnim czasie
                 ', td[style*="background-color:#DD7665"]'+      //od dawna nie aktualizowane
                 ', span[style*="color: white"]'+                //ilość oczekujących
                 ', div[style*="background-color: #21262b"]';    //górna belka z datą i oceną przy komentarzach
@@ -1164,7 +1187,7 @@ var misc = {
         {
             var style=inline[i].getAttribute('style');
             style=style.replace('rgb(0,200,0)', 'rgb(0,150,0)');
-            style=style.replace('background-color:#41d64b', 'background-color:#DFDFDF !important');
+            style=style.replace('background-color:#255180', 'background-color:#DFDFDF !important');
             style=style.replace('background-color:#DD7665', 'background-color:#DD7665 !important');
             style=style.replace('color: white', 'color: black');
             style=style.replace('background-color: #21262b', 'background-color: #ADADAD');
