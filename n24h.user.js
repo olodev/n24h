@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         0.9
+// @version         0.9.1
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -246,8 +246,8 @@ var options = {
                     'padding: 10px 10px 0px 10px;'+
                     '}'+
                 '.n24h_options_body{'+
-                    'display: table;'+//
-                    'min-height: 150px;'+//
+                    'display: table;'+
+                    'min-height: 150px;'+
                     '}'+
                 '.n24h_options_body>input{'+
                     'margin: 0px;'+
@@ -333,7 +333,7 @@ var options = {
         li.setAttribute('id', 'n24h_options_gear');
         li.setAttribute('title', 'napisy24.pl helper opcje');
         li.addEventListener('click', options.show, false);
-        var img=document.createElement('img');    //panel z opcjami
+        var img=document.createElement('img');
         img.setAttribute('src', icons.gear);
         img.setAttribute('style', 'margin-top: -5px;');
         li.appendChild(img);
@@ -1033,7 +1033,7 @@ var komentarze = {
         komentarze.addOpener();
         komentarze.fix_comments();
     }
-}
+};
 
 /**
     Różności
@@ -1111,6 +1111,7 @@ var misc = {
                 'textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {background-color: #D5D5D5 !important;}'+//pola tekstowe
                 '#search #phrase{color: #000000;}'+//wyszukiwarka
                 'section#content .tbl_top{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+ //tabelka nagłówek
+                '.tbl_top2{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+ //tabelka nagłówek
                 'section#content .tbl_top .head_r label{color:#000000 !important;}'+
                 'section#content .tbl_top .head_l{color:#000000 !important;}'+
                 'section#content .tbl{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+
@@ -1140,6 +1141,7 @@ var misc = {
                 'section#content .tbl .subtitle .sub h2{color: #272829 !important;}'+
                 'select {background-color: #C5C5C5;}'+
                 'a, a:link, a:visited {color: #1E519D;}'+
+                '.infoheader{color: #000000 !important;}'+
                 /**tłumaczenia*/
                 'table.table-layout thead tr th{background-color: #D5D5D5 !important;color: #272829 !important;border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;}'+
                 'table.table-layout tbody tr.odd td{background-color: #C5C5C5 !important;}'+
@@ -1213,7 +1215,7 @@ var misc = {
         if (options.getValue('usealtskin', false))
             misc.altSkin();
     }
-}
+};
 
 var n24h = {
     /**
@@ -1230,12 +1232,20 @@ var n24h = {
             komentarze.init();
         }
     },
-
     /**
     */
     init: function()
     {
-        window.addEventListener('DOMContentLoaded', n24h.onLoad, false);
+        if(navigator.userAgent.indexOf("Opera") != -1 )
+        {
+            window.addEventListener('load', n24h.onLoad, false);
+            console.log('Jestem starą Operą :)');
+        }
+        else
+        {
+            window.addEventListener('DOMContentLoaded', n24h.onLoad, false);
+            console.log('Nie jestem starą Operą :)');
+        }
     }
 };
 
