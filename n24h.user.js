@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.0
+// @version         1.0.01
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -286,6 +286,7 @@ var options = {
                     'border-right: 1px solid #A0A0A0;'+
                     'display: table-cell;'+
                     'position: relative;'+
+                    
                     '}'+
                 '.n24h_options_panel_r{'+
                     'padding: 10px;'+
@@ -378,6 +379,7 @@ var options = {
                                             '<div><input type="checkbox" data-n24h-checkbox="usealtskin"> Używaj alternatywnej skórki</div>'+
                                                 '<div class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="1"> szara</div>'+
                                                 '<div class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="2"> n24 classic</div>'+
+                                            '<div><input type="checkbox" data-n24h-checkbox="usesmallmenubuttons"> Zmniejsz rozmiar przycisków menu</div>'+
                                         '</div>'+
                                         '<div style="display:none" class="n24h_options_panel_r" data-n24h-optionpanel="shows">'+
                                             '<label>Ulubione filmy/seriale (jeden film/serial na linię)</label>'+
@@ -1158,7 +1160,7 @@ var misc = {
                 'section#content .tbl_out{border-bottom:1px solid #A0A0A0 !important;}'+
                 'section#content .tbl .poster{border-right:1px solid #A0A0A0 !important;}'+
                 'section#content .pagination{border: 1px solid #A0A0A0;background-color: #E0E0E0;}'+
-                'section#content .pagination .page-start, section#content .pagination .page-prev, section#content .pagination .page-next{ color: #272829;background-color: #D5D5D5;}'+//strat, poprzednia, następna
+                'section#content .pagination .page-start, section#content .pagination .page-prev, section#content .pagination .page-next{ color: #272829;background-color: #D5D5D5;}'+//strart, poprzednia, następna
                 'section#content .pagination .page-start:hover, section#content .pagination .page-prev:hover, section#content .pagination .page-next:hover{color: #272829;background-color: #E0E0E0;border-radius: 0px 0px 3px 3px;border-bottom: 3px solid #D26911;border-top:none;padding-bottom: 0px;line-height: 30px;}'+
                 'section#content .pagination .page-prev:hover{background-position: 15px center;}'+
                 'section#content .pagination .page-next:hover{background-position: 90px center;}'+
@@ -1255,7 +1257,7 @@ var misc = {
                 'section#content .pagination{background: linear-gradient(#EDEEEE, #E2E3E3);border:none;border-radius:5px;}'+
                 'section#content .tbl .subtitle .sub h2{color:#004896 !important;}'+
                 'section#content .tbl .subtitle .sub h3{color:#5D5D5D !important;}'+
-                'section#content .pagination .page-start, section#content .pagination .page-prev, section#content .pagination .page-next{ color: #2C2C2C;background-color: #F9F9F9;border: 1px solid #CECFCF;border-radius: 4px;margin: 4px 2px 0px;line-height: 20px;background-image:none;}'+//strat, poprzednia, następna
+                'section#content .pagination .page-start, section#content .pagination .page-prev, section#content .pagination .page-next{ color: #2C2C2C;background-color: #F9F9F9;border: 1px solid #CECFCF;border-radius: 4px;margin: 4px 2px 0px;line-height: 20px;background-image:none;}'+//strart, poprzednia, następna
                 'section#content .pagination .page-start:hover, section#content .pagination .page-prev:hover, section#content .pagination .page-next:hover{color: #2C2C2C;background-color: #F9F9F9;border: 1px solid #CECFCF;border-radius: 4px;padding-bottom: 0px;line-height: 30px;text-decoration:underline;line-height: 20px;background-image:none;}'+
                 'section#content .pagination .page-start, section#content .pagination .page-prev {padding-left:15px;}'+
                 'section#content .pagination .page-next {padding-right:15px;}'+
@@ -1389,6 +1391,10 @@ var misc = {
             openers[i].addEventListener('click', misc.openerClick, false);
         }
     },
+    shrinkButtons: function() {
+        var css='.avatar-menu-icons[class*="avatar-main-menu"] > li {padding-left: 5px; padding-right: 5px;}';
+        utils.insertcss(css);
+    },
     init: function() {
         if (options.getValue('fixsearch', false))
             misc.fixSearch();
@@ -1398,6 +1404,8 @@ var misc = {
             misc.killIMDBInfo();
         if (options.getValue('usealtskin', false))
             misc.altSkin();
+        if (options.getValue('usesmallmenubuttons', false))
+            misc.shrinkButtons();
         misc.fixOpener();
     }
 };
