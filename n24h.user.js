@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.0.01
+// @version         1.0.2
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -668,7 +668,7 @@ var tlumaczenia = {
             {
                 document.querySelector('input#n24h_tr_input_new').value='';
                 var select=document.querySelector('select#n24h_tr_shows_list');
-                var option=document.createElement("option");
+                var option=document.createElement('option');
                 option.text=title;
                 option.setAttribute('class', 'n24h_tr_option');
                 select.add(option);
@@ -1141,7 +1141,7 @@ var misc = {
                 'nav ul li.menu_add_napisy a{background-color: #2B68AB;border-bottom: 4px solid #1B4A7E;}'+//przycisk dodaj napisy
                 'nav ul li.menu_add_napisy a:hover{background-color: #1B4A7E;color: #CCC;background-position: 21px 12px;}'+
                 'nav ul li.menu_add_napisy a:active{color: #CCC;text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.2);filter: dropshadow(color=#33000000, offx=0, offy=-1);border-top: 4px solid #2B68AB;border-bottom: 4px solid #1B4A7E;background-color: #1B4A7E;background-position: 21px 8px;}'+
-                'body{background-color:#D5D5D5;color: #272727;}'+//body
+                'body{background-color:#D5D5D5 !important;color: #272727;}'+//body
                 '#avatar-body-middle-block{background-color:#D5D5D5;}'+//środek
                 '#avatar-header-inside-block{background-color:#D5D5D5;}'+//górna belka body
                 '.logo .screen{border: 4px solid #5592D5 !important;}'+//logo
@@ -1207,6 +1207,7 @@ var misc = {
                 'section#content .tbl .mark{color: #000000 !important;}'+
                 'textarea{background-color: #B5B5B5 !important;color: #272829 !important;}'+
                 'div[style*="background-color: #21262b"]{background-color: #ADADAD !important;}'+ //górna belka z datą i oceną
+                '.tresc2>div[style*="background-color: #292f35"]{background-color: #E9E9E9 !important;}'+ //cytat
                 /**artykuły*/
                 '#jc{background: none repeat scroll 0px 0px #B5B5B5;}'+
                 '#jc h4{color: #272829;background-color: #C5C5C5;}'+
@@ -1230,7 +1231,7 @@ var misc = {
                 'div.n24h_comm_opener:hover {background-color: #C5C5C5 !important;}';
         /** Szara stop*/
         /** n24 classic start*/
-        var altcss2='body{background-color:#DEE0E2;color: #272727;}'+//body
+        var altcss2='body{background-color:#DEE0E2 !important;color: #272727;}'+//body
                 '#avatar-body-middle-block{background-color:#DEE0E2;}'+//środek
                 '#avatar-header-inside-block{background-color:#DEE0E2;}'+//górna belka body
                 '#avatar-tool-block{background-color:#DEE0E2;}'+
@@ -1319,6 +1320,7 @@ var misc = {
                 'div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;border: solid 1px white !important;line-height: inherit !important;}'+ //górna belka z datą i oceną
                 'section#content .page .tbl ~ div:not([class]){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
                 'form#userForm{border-left:1px solid #000000; border-bottom:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
+                '.tresc2>div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}'+ //cytat
                 /**artykuły*/
                 '#jc{background: none repeat scroll 0px 0px #DFE2E5; border: 1px solid #000000;}'+
                 '#jc .rbox{background-color: #DFE2E5;}'+

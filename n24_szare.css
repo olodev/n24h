@@ -1,6 +1,6 @@
 /**
 n24 szare
-wersja 1.0
+wersja 1.0.2
 */
 .avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;}
 [class*="avatar-main-menu-szare"] > li:hover {border-bottom: 4px solid #1B4A7E;}
@@ -51,6 +51,7 @@ section#content .tbl .subtitle .sub h2{color: #272829 !important;}
 select {background-color: #C5C5C5;}
 a, a:link, a:visited {color: #1E519D;}
 .infoheader{color: #000000 !important;}
+/**tłumaczenia*/
 table.table-layout thead tr th{background-color: #D5D5D5 !important;color: #272829 !important;border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;}
 table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]){background-color: #C5C5C5 !important;}
 table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]){background-color: #B5B5B5 !important;}
@@ -66,12 +67,15 @@ table.table-layout tbody tr td div a[style*="color: rgb(0,200,0)"]{color: rgb(0,
 .translation {cursor: pointer !important;}
 .headerSortUp{background-image: url(run/images/arrs.png);background-repeat: no-repeat;background-position: right;}
 .headerSortDown{background-image: url(run/images/arrsh.png);background-repeat: no-repeat;background-position: right;}
+/**komentarze*/
 .moreInfo2{background-color:#D5D5D5 !important;color:#000000 !important;}
 section#content .tbl .avatar{border-right: 1px solid #A0A0A0 !important;}
 section#content .tbl .subtitle .sub h3{color: #000000 !important;}
 section#content .tbl .mark{color: #000000 !important;}
 textarea{background-color: #B5B5B5 !important;color: #272829 !important;}
 div[style*="background-color: #21262b"]{background-color: #ADADAD !important;}
+.tresc2>div[style*="background-color: #292f35"]{background-color: #E9E9E9 !important;}
+/**artykuły*/
 #jc{background: none repeat scroll 0px 0px #B5B5B5;}
 #jc h4{color: #272829;background-color: #C5C5C5;}
 #jc .rbox{background-color: #B5B5B5;}
@@ -82,4 +86,6 @@ div[style*="background-color: #21262b"]{background-color: #ADADAD !important;}
 #comments blockquote, #comments .hidden, #comments code, #comments pre{color: #1B6A6A;}
 #comments a{color: #174B54;}
 #comments-form input{color: #2D3335;}
+/**profil*/
+/**seriale*/
 span.yellowfont {color: #000000 !important;}

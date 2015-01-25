@@ -1,8 +1,8 @@
 /**
 n24 classic
-wersja 1.0
+wersja 1.0.2
 */
-body{background-color:#DEE0E2;color: #272727;}
+body{background-color:#DEE0E2 !important;color: #272727;}
 #avatar-body-middle-block{background-color:#DEE0E2;}
 #avatar-header-inside-block{background-color:#DEE0E2;}
 #avatar-tool-block{background-color:#DEE0E2;}
@@ -55,6 +55,7 @@ section#content .page{color: #252525 !important;}
 .head_r input[type="radio"] + label{background-image: none !important;color: #2C2C2C !important;background-color: #F9F9F9;border: 1px solid #CECFCF;border-radius: 4px;padding: 0px 10px 0px 10px !important;}
 .head_r input[type="radio"] + label:hover{text-decoration:underline;}
 .infoheader{color: #20487F !important;}
+/**tłumaczenia*/
 .checkbox_outer input[type="checkbox"] + span{width:19px;height:17px;background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETc09F0PlAAAAGRJREFUOMtj/Pnz538GKoCr164xMDFQEQxZw+4wTJzDzsDensGwY0h7kxFb0rhz2IpB+8hZ7Do0NzL8DPCgfdJgxJ9o7zBMnKPNUPY6kWFj5QwGjyGbaBlH8ybJgOXqtWtUMwwAJg4sDO+yKkcAAAAASUVORK5CYII=) !important;}
 .checkbox_outer input[type="checkbox"]:checked + span{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETcCO+eaDQAAADxJREFUOMtj/Pnz538GKoCr164xMDFQEYwaNjIMuzORgZWdnYENhq0mMjDS02WMozlgGBnGcvXaNaoZBgBLTBH0qX8ljgAAAABJRU5ErkJggg==) !important;}
 .checkbox_outer input[type="checkbox"]:hover + span{border-bottom: 1px solid #FCB622;border-right: 1px solid #FCB622;border-radius: 5px;}
@@ -78,6 +79,7 @@ nav ul li.menu_add_tlum a:hover{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;
 nav ul li.menu_add_tlum a:active{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 48px;height: 42px;background-position: 21px 12px;text-shadow:none;filter:none;border-top:none;}
 table.table-layout thead tr th.headerSortUp{background-image: url(run/images/arrs.png) ,linear-gradient(#2369B0, #104694, #2167AF) !important; !important;background-repeat: no-repeat !important;background-position: right !important;}
 table.table-layout thead tr th.headerSortDown{background-image: url(run/images/arrsh.png) ,linear-gradient(#2369B0, #104694, #2167AF) !important; !important;background-repeat: no-repeat !important;background-position: right !important;}
+/**komentarze*/
 .moreInfo2{background-color:#DFE2E5 !important;color:#000000 !important;}
 section#content .clear ~ .tbl{background-color:#DFE2E5 !important;border-bottom: 1px solid #BBBBBB !important;margin-bottom:2px !important;}
 section#content .clear ~ .tbl .infoColumn0{background-color:#DFE2E5 !important;}
@@ -89,10 +91,14 @@ textarea{background-color: #FFFFFF !important;color: #000000 !important;}
 div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;border: solid 1px white !important;line-height: inherit !important;}
 section#content .page .tbl ~ div:not([class]){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}
 form#userForm{border-left:1px solid #000000; border-bottom:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}
+.tresc2>div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}
+/**artykuły*/
 #jc{background: none repeat scroll 0px 0px #DFE2E5; border: 1px solid #000000;}
 #jc .rbox{background-color: #DFE2E5;}
 #comments .comment-date{color: #252525;}
 #comments .comment-body{color: #252525;}
 #comments blockquote, #comments .hidden, #comments code, #comments pre{color: #252525;}
 #comments a{color: #174B54;}
+/**profil*/
+/**seriale*/
 span.yellowfont {color: #000000 !important;}
