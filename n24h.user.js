@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.0.2
+// @version         1.0.3
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -967,6 +967,7 @@ var komentarze = {
         var css='div.n24h_comment{'+
                 'font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;'+
                 'font-size: 13px;'+
+                'text-align: left;'+
                 '}';
         utils.insertcss(css);
 
@@ -1089,8 +1090,7 @@ var misc = {
         e = e || window.event;
         if (e.keyCode==27)
             input.value='';
-        var searchtext = input.value;
-        sessionStorage.setItem('n24h_search', searchtext);
+        sessionStorage.setItem('n24h_search', input.value);
     },
     /**
         Dodaj zapamiętywanie wyszukiwanych filmów/seriali
@@ -1100,10 +1100,11 @@ var misc = {
         if (!input)
             return;
         var searchtext=sessionStorage.getItem('n24h_search');
-        if (searchtext==null)
-            input.value='';
-        else
+        if ((searchtext!==null)&&(searchtext!==''))
+        {
             input.value=searchtext;
+            console.log('searchtext: '+searchtext);
+        }
         input.addEventListener('keyup', misc.SearchHandler, false);
     },
     /**
