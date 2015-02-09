@@ -1,6 +1,6 @@
 /**
 n24 szare
-wersja 1.0.2
+wersja 1.0.4
 */
 .avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;}
 [class*="avatar-main-menu-szare"] > li:hover {border-bottom: 4px solid #1B4A7E;}
@@ -16,8 +16,8 @@ body{background-color:#D5D5D5;color: #272727;}
 .logo .screen .subline2{background-color: #5592D5 !important;}
 .logo h1{color: #5592D5 !important;}
 .logo h2{color: #5592D5 !important;}
-textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {background-color: #D5D5D5 !important;}
-#search #phrase{color: #000000;}
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {background-color: #D5D5D5 !important;color: #000000 !important;}
+#search #phrase{color: #000000 !important;}
 section#content .tbl_top{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}
 .tbl_top2{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}
 section#content .tbl_top .head_r label{color:#000000 !important;}
