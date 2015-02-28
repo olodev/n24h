@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.0.4
+// @version         1.0.5
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -333,9 +333,10 @@ var options = {
                 '.n24h_opt_area:focus{'+
                     'color: #555555;'+
                     '}'+
-                '.n24h_options_panel_r > div > input[type="checkbox"], input[type="radio"]{'+
+                '.n24h_options_panel_r > div > input{'+
                     'margin: 0px;'+
                     'margin-top: -4px;'+
+                    'display: inline;'+
                     '}'+
                 '.n24_option_level2{'+
                     'margin-left:30px;'+
@@ -1165,7 +1166,7 @@ var misc = {
                 'section#content .pagination .page-start:hover, section#content .pagination .page-prev:hover, section#content .pagination .page-next:hover{color: #272829;background-color: #E0E0E0;border-radius: 0px 0px 3px 3px;border-bottom: 3px solid #D26911;border-top:none;padding-bottom: 0px;line-height: 30px;}'+
                 'section#content .pagination .page-prev:hover{background-position: 15px center;}'+
                 'section#content .pagination .page-next:hover{background-position: 90px center;}'+
-                'section#content .pagination .page-num{color: #272829;background-color: #D5D5D5;}'+//numery stron
+                'section#content .pagination .page-num{color: #272829 !important;background-color: #D5D5D5;}'+//numery stron
                 'section#content .pagination .page-num:hover{background-color: #E0E0E0;border-top-width: 1px;margin-top: 0px;border-radius: 0px 0px 3px 3px;border-bottom: 3px solid #D26911;}'+
                 'section#content .tbl.opened .subtitle .opener, section#content .tbl .subtitle:hover .opener {background-color: #E0E0E0 !important;border-radius: 0px 0px 3px 3px;border-bottom: 3px solid #D26911;}'+
                 '.module_frame{border: 1px solid #A0A0A0;}'+
@@ -1201,6 +1202,7 @@ var misc = {
                 '.translation {cursor: pointer !important;}'+
                 '.headerSortUp{background-image: url(run/images/arrs.png);background-repeat: no-repeat;background-position: right;}'+
                 '.headerSortDown{background-image: url(run/images/arrsh.png);background-repeat: no-repeat;background-position: right;}'+
+                '.progress > span > span {color: #FFFFFF !important;}'+ //procenty ukończenia
                 /**komentarze*/
                 '.moreInfo2{background-color:#D5D5D5 !important;color:#000000 !important;}'+
                 'section#content .tbl .avatar{border-right: 1px solid #A0A0A0 !important;}'+
@@ -1208,7 +1210,7 @@ var misc = {
                 'section#content .tbl .mark{color: #000000 !important;}'+
                 'textarea{background-color: #B5B5B5 !important;color: #272829 !important;}'+
                 'div[style*="background-color: #21262b"]{background-color: #ADADAD !important;}'+ //górna belka z datą i oceną
-                '.tresc2>div[style*="background-color: #292f35"]{background-color: #E9E9E9 !important;}'+ //cytat
+                '.tresc2 div[style*="background-color: #292f35"]{background-color: #E9E9E9 !important;}'+ //cytat
                 /**artykuły*/
                 '#jc{background: none repeat scroll 0px 0px #B5B5B5;}'+
                 '#jc h4{color: #272829;background-color: #C5C5C5;}'+
@@ -1224,6 +1226,10 @@ var misc = {
                 ''+
                 /**seriale*/
                 'span.yellowfont {color: #000000 !important;}'+
+                /**serial*/
+                'section#content .tbl_top_powiadomienia {background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+
+                'section#content .tbl_top_powiadomienia .head_l {color: #414141 !important;}'+
+                'section#content .tbl_top_powiadomienia .head_r  label {color: #414141 !important;}'+
                 /**n24 helper*/
                 '#n24h_tr_input_search, #n24h_tr_input_new{color: #000000 !important;}'+
                 '#n24h_tr_input_clear, #n24h_tr_input_add, #n24h_tr_input_remove {background-color: #C5C5C5 !important;color: #000000 !important;}'+
@@ -1265,7 +1271,7 @@ var misc = {
                 'section#content .pagination .page-next {padding-right:15px;}'+
                 'section#content .pagination a.page-num{color: #2C2C2C;background-color: #F9F9F9;border: 1px solid #CECFCF;border-radius: 4px;}'+//numery stron
                 'section#content .pagination a.page-num:hover{background-color: #F9F9F9;border: 1px solid #CECFCF;margin-top: 0px; border-radius: 4px;text-decoration:underline;}'+
-                'section#content .pagination span.page-num{color: #FFFFFF;background-color: #2A5EA1;border: 1px solid #CECFCF;border-radius: 4px;}'+//numery stron
+                'section#content .pagination span.page-num{color: #FFFFFF !important;background-color: #2A5EA1;border: 1px solid #CECFCF;border-radius: 4px;}'+//numery stron
                 'section#content .pagination span.page-num:hover{background-color: #2A5EA1;border: 1px solid #CECFCF;margin-top: 0px; border-radius: 4px;text-decoration:underline;}'+
                 'section#content .tbl.opened .subtitle .opener, section#content .tbl .subtitle:hover .opener {background-color: #F7F8F8 !important;}'+
                 '.module_frame{border: none;}'+
@@ -1284,6 +1290,7 @@ var misc = {
                 '.head_r input[type="radio"]:checked + label{background-image: none !important;color: #FFFFFF !important;background-color: #2A5EA1;border: 1px solid #CECFCF;border-radius: 4px;}'+
                 '.head_r input[type="radio"] + label{background-image: none !important;color: #2C2C2C !important;background-color: #F9F9F9;border: 1px solid #CECFCF;border-radius: 4px;padding: 0px 10px 0px 10px !important;}'+
                 '.head_r input[type="radio"] + label:hover{text-decoration:underline;}'+
+                '.head_r > label{color: #2C2C2C !important;}'+
                 '.infoheader{color: #20487F !important;}'+
                 /**tłumaczenia*/
                 '.checkbox_outer input[type="checkbox"] + span{width:19px;height:17px;background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETc09F0PlAAAAGRJREFUOMtj/Pnz538GKoCr164xMDFQEQxZw+4wTJzDzsDensGwY0h7kxFb0rhz2IpB+8hZ7Do0NzL8DPCgfdJgxJ9o7zBMnKPNUPY6kWFj5QwGjyGbaBlH8ybJgOXqtWtUMwwAJg4sDO+yKkcAAAAASUVORK5CYII=) !important;}'+
@@ -1321,7 +1328,7 @@ var misc = {
                 'div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;border: solid 1px white !important;line-height: inherit !important;}'+ //górna belka z datą i oceną
                 'section#content .page .tbl ~ div:not([class]){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
                 'form#userForm{border-left:1px solid #000000; border-bottom:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
-                '.tresc2>div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}'+ //cytat
+                '.tresc2 div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}'+ //cytat
                 /**artykuły*/
                 '#jc{background: none repeat scroll 0px 0px #DFE2E5; border: 1px solid #000000;}'+
                 '#jc .rbox{background-color: #DFE2E5;}'+
@@ -1333,6 +1340,10 @@ var misc = {
                 ''+
                 /**seriale*/
                 'span.yellowfont {color: #000000 !important;}'+
+                /**serial*/
+                'section#content .tbl_top_powiadomienia {background: linear-gradient(#EDEEEE, #E2E3E3) !important;border-top: none !important;border-radius:5px;}'+
+                'section#content .tbl_top_powiadomienia .head_l {color: #414141 !important;}'+
+                'section#content .tbl_top_powiadomienia .head_r  label {color: #414141 !important;}'+
                 /**n24 helper*/
                 'table.table-layout tbody tr.odd td[data-n24h-star]{background-image: url('+icons.staroff+'), linear-gradient(#FFFFFF, #DEE0E2) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
                 'table.table-layout tbody tr.even td[data-n24h-star]{background-image: url('+icons.staroff+'), linear-gradient(#E1E1E1, #ECECEC) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
