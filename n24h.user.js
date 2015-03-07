@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.1
+// @version         1.1.1
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -1335,7 +1335,7 @@ var misc = {
                 'section#content .tbl .mark{color: #FFFFFF !important;}'+
                 'textarea{background-color: #FFFFFF !important;color: #000000 !important;}'+
                 'div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;line-height: inherit !important;}'+ //górna belka z datą i oceną
-//                'section#content>.page>div:nth-child(2):not(.pagination):not(#n24h_tr_panel){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
+                'section#content>.page>div:nth-child(2):not([class]):not([id]){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
                 'form#userForm{border-left:1px solid #000000; border-bottom:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
                 '.tresc2 div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}'+ //cytat
                 /**artykuły*/

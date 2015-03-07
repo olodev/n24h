@@ -1,6 +1,6 @@
 /**
 n24 classic
-wersja 1.1
+wersja 1.1.1
 */
 body{background-color:#DEE0E2 !important;color: #272727;}
 #avatar-body-middle-block{background-color:#DEE0E2;}
@@ -93,9 +93,7 @@ section#content .tbl div[style*="background-color: #21262b"] .subtitle .sub h3{c
 section#content .tbl .mark{color: #FFFFFF !important;}
 textarea{background-color: #FFFFFF !important;color: #000000 !important;}
 div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;line-height: inherit !important;}
-/*
-section#content>.page>div:nth-child(2):not(.pagination){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}
-*/
+section#content>.page>div:nth-child(2):not([class]):not([id]){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}
 form#userForm{border-left:1px solid #000000; border-bottom:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}
 .tresc2 div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}
 /**artykuły*/
