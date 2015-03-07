@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.0.5
+// @version         1.1
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -375,6 +375,7 @@ var options = {
                                             '<div><input type="checkbox" data-n24h-checkbox="killcover"> Usuń okładki filmów/seriali</div>'+
                                             '<div><input type="checkbox" data-n24h-checkbox="killimdbinfo"> Usuń info o serialu/ocenę IMDB</div>'+
                                             '<div><input type="checkbox" data-n24h-checkbox="hideemotspanel"> Ukrywaj panel z emotikonami i dodawaniem komentarza</div>'+
+                                            '<div><input type="checkbox" data-n24h-checkbox="fixcomments"> W komentarzach propozycję poprawek wyświetlaj czcionką o stałej szerokości</div>'+
                                             '<div><input type="checkbox" data-n24h-checkbox="shown24info"> Na stronie z tłumaczeniami pokaż info N24/IMDB</div>'+
                                                 '<div class="n24_option_level2" style="display:none"><input type="checkbox" data-n24h-checkbox="useimdbinfo"> Zastąp info N24 linkiem do IMDB</div>'+
                                             '<div><input type="checkbox" data-n24h-checkbox="usealtskin"> Używaj alternatywnej skórki</div>'+
@@ -993,7 +994,7 @@ var komentarze = {
         Pokaż/ukryj panel z emotkami i dodawaniem komentarza
     */
     ShowHideEmots: function() {
-        var emots=document.querySelector('.tbl_out>div:nth-child(3)');
+        var emots=document.querySelector('.page > div:nth-child(2)');
         var form=document.querySelector('form#userForm');
         var opener=document.querySelector('div#n24h_comm_opener');
         if ((!emots) || (!form))
@@ -1048,7 +1049,8 @@ var komentarze = {
     },
     init: function() {
         komentarze.addOpener();
-        komentarze.fix_comments();
+        if (options.getValue('fixcomments', false))
+            komentarze.fix_comments();
     }
 };
 
@@ -1168,7 +1170,7 @@ var misc = {
                 'section#content .pagination .page-next:hover{background-position: 90px center;}'+
                 'section#content .pagination .page-num{color: #272829 !important;background-color: #D5D5D5;}'+//numery stron
                 'section#content .pagination .page-num:hover{background-color: #E0E0E0;border-top-width: 1px;margin-top: 0px;border-radius: 0px 0px 3px 3px;border-bottom: 3px solid #D26911;}'+
-                'section#content .tbl.opened .subtitle .opener, section#content .tbl .subtitle:hover .opener {background-color: #E0E0E0 !important;border-radius: 0px 0px 3px 3px;border-bottom: 3px solid #D26911;}'+
+                'section#content .tbl.opened .subtitle .opener, section#content .tbl .subtitle:hover .opener, .page .closerSmall2:hover {background-color: #E0E0E0 !important;border-radius: 0px 0px 3px 3px;border-bottom: 3px solid #D26911;}'+
                 '.module_frame{border: 1px solid #A0A0A0;}'+
                 '.category-modulemodule_frame li a{color: #000000;}'+
                 '.category-modulemodule_frame li a:hover{color: #2F2F2F;background-color: #E0E0E0;}'+
@@ -1178,25 +1180,26 @@ var misc = {
                 '.avatar-module .st-module-heading{background-color: #A0A0A0;color: #2F2F2F;}'+
                 '.login-greeting{color: #272829;}'+
                 '.moreInfo{background-color:#D5D5D5 !important;color:#000000 !important; border-top: 1px solid #A0A0A0;}'+
-                '.page span{color: #272829;}'+
+                '.page span{color: #272829 !important;}'+
                 '.infofooter{border-top: 1px solid #A0A0A0 !important;background-color: #D5D5D5 !important;}'+
                 '.infoColumn0{background-color: #D5D5D5 !important;border-right: 1px solid #A0A0A0 !important;border-bottom: 1px solid #A0A0A0 !important;border-top: 1px solid #A0A0A0 !important}'+
                 'section#content .page{color: #272829 !important;}'+
                 'section#content .tbl .subtitle .sub h2{color: #272829 !important;}'+
-                'select {background-color: #C5C5C5;}'+
+                'select {background-color: #C5C5C5 !important;}'+
                 'a, a:link, a:visited {color: #1E519D;}'+
                 '.infoheader{color: #000000 !important;}'+
+                '.row-fluid {border-bottom: none !important;}'+
                 /**tłumaczenia*/
                 'table.table-layout thead tr th{background-color: #D5D5D5 !important;color: #272829 !important;border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;}'+
-                'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]){background-color: #C5C5C5 !important;}'+
-                'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]){background-color: #B5B5B5 !important;}'+
+                'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]){background-color: #C5C5C5 !important;}'+
+                'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]){background-color: #B5B5B5 !important;}'+
                 'table.table-layout tbody tr td{border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;color: #000000 !important;}'+
                 'table.table-layout{border-top: 1px solid #A0A0A0 !important;}'+
                 '.progress div{background-color: #A0A0A0 !important;}'+
                 'nav ul li.menu_add_tlum a{background-color: #2B68AB;border-bottom: 4px solid #2B68AB;background-position: 21px 12px;}'+
                 'nav ul li.menu_add_tlum a:hover{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 44px;height: 42px;background-position: 21px 12px;}'+
                 'nav ul li.menu_add_tlum a:active{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 48px;height: 42px;background-position: 21px 12px;text-shadow:none;filter:none;border-top:none;}'+
-                'table.table-layout tbody tr td[style*="background-color:#255180"]{background-color:#DFDFDF !important;}'+ //ostatnio zaktualizowane
+                'table.table-layout tbody tr td[style*="background-color:#255180"], td[style*="background-color:#41d64b"]{background-color:#DFDFDF !important;}'+ //ostatnio zaktualizowane
                 'table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: black !important;}'+ //ilość oczekujących
                 'table.table-layout tbody tr td div a[style*="color: rgb(0,200,0)"]{color: rgb(0,150,0) !important;}'+ //moderator
                 '.translation {cursor: pointer !important;}'+
@@ -1223,7 +1226,10 @@ var misc = {
                 '#comments a{color: #174B54;}'+
                 '#comments-form input{color: #2D3335;}'+
                 /**profil*/
-                ''+
+                '#uddeim-overview .sectiontableentry1 {background-color: #C5C5C5 !important;}'+
+                '#uddeim-overview .sectiontableentry2 {background-color: #B5B5B5 !important;}'+
+                '#uddeim-overview>table {border-collapse: initial !important;}'+
+                '#uddeim-writeform input {background-color: #D5D5D5 !important;}'+
                 /**seriale*/
                 'span.yellowfont {color: #000000 !important;}'+
                 /**serial*/
@@ -1273,7 +1279,7 @@ var misc = {
                 'section#content .pagination a.page-num:hover{background-color: #F9F9F9;border: 1px solid #CECFCF;margin-top: 0px; border-radius: 4px;text-decoration:underline;}'+
                 'section#content .pagination span.page-num{color: #FFFFFF !important;background-color: #2A5EA1;border: 1px solid #CECFCF;border-radius: 4px;}'+//numery stron
                 'section#content .pagination span.page-num:hover{background-color: #2A5EA1;border: 1px solid #CECFCF;margin-top: 0px; border-radius: 4px;text-decoration:underline;}'+
-                'section#content .tbl.opened .subtitle .opener, section#content .tbl .subtitle:hover .opener {background-color: #F7F8F8 !important;}'+
+                'section#content .tbl.opened .subtitle .opener, section#content .tbl .subtitle:hover .opener, .page .closerSmall2 {background-color: #F7F8F8 !important;}'+
                 '.module_frame{border: none;}'+
                 '.avatar-module .st-module-heading{background: linear-gradient(#266CB3, #0E418E);border-bottom: 1px solid #0B3372;border-radius:5px;box-shadow: -5px 5px 1px #FFFFFF;margin-bottom:10px;}'+
                 '.category-modulemodule_frame li a,aside .list li a{background-color: #1758A5 !important;border-bottom:1px solid #0D3A6F;margin-bottom:1px;font-weight: bold;}'+
@@ -1282,7 +1288,7 @@ var misc = {
                 'aside .list{border: none !important;}'+
                 'section#content .tbl_top .head_r label {margin-right:10px !important;}'+
                 '.moreInfo{background-color:#F7F8F8 !important;color:#252525 !important;}'+
-                '.page span{color: #252525;}'+
+                '.page span{color: #252525 !important;}'+
                 '.infofooter{border-top: 1px solid #DBDCDC !important;background-color: #F7F8F8 !important;color:#252525 !important;}'+
                 '.infoColumn0{background-color: #F7F8F8 !important;border-right: 1px solid #DBDCDC !important;border-bottom: 1px solid #DBDCDC !important;border-top: 1px solid #DBDCDC !important}'+
                 'section#content .tbl .poster{border-right: 1px solid #DBDCDC !important}'+
@@ -1291,7 +1297,10 @@ var misc = {
                 '.head_r input[type="radio"] + label{background-image: none !important;color: #2C2C2C !important;background-color: #F9F9F9;border: 1px solid #CECFCF;border-radius: 4px;padding: 0px 10px 0px 10px !important;}'+
                 '.head_r input[type="radio"] + label:hover{text-decoration:underline;}'+
                 '.head_r > label{color: #2C2C2C !important;}'+
+                'select {background-color: #FFFFFF !important;}'+
                 '.infoheader{color: #20487F !important;}'+
+                'section#content .tbl div.mark:nth-child(3) {color: #545D62 !important;}'+
+                '.row-fluid {border-bottom: none !important;}'+
                 /**tłumaczenia*/
                 '.checkbox_outer input[type="checkbox"] + span{width:19px;height:17px;background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETc09F0PlAAAAGRJREFUOMtj/Pnz538GKoCr164xMDFQEQxZw+4wTJzDzsDensGwY0h7kxFb0rhz2IpB+8hZ7Do0NzL8DPCgfdJgxJ9o7zBMnKPNUPY6kWFj5QwGjyGbaBlH8ybJgOXqtWtUMwwAJg4sDO+yKkcAAAAASUVORK5CYII=) !important;}'+
                 '.checkbox_outer input[type="checkbox"]:checked + span{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETcCO+eaDQAAADxJREFUOMtj/Pnz538GKoCr164xMDFQEYwaNjIMuzORgZWdnYENhq0mMjDS02WMozlgGBnGcvXaNaoZBgBLTBH0qX8ljgAAAABJRU5ErkJggg==) !important;}'+
@@ -1299,12 +1308,12 @@ var misc = {
                 '.checkbox_outer{margin-top: 0px !important;top: 4px !important;}'+
                 'table.table-layout{border-top: none !important;}'+
                 'table.table-layout thead tr th{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;border: solid 1px white !important;line-height: inherit !important;}'+ //nagłówek tabelki
-                'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([data-n24h-star]){background: linear-gradient(#FFFFFF, #DEE0E2) !important;}'+//nie nadpisuj aktualizacji
-                'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([data-n24h-star]){background: linear-gradient(#E1E1E1, #ECECEC) !important;}'+
+                'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([data-n24h-star]){background: linear-gradient(#FFFFFF, #DEE0E2) !important;}'+//nie nadpisuj aktualizacji
+                'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([data-n24h-star]){background: linear-gradient(#E1E1E1, #ECECEC) !important;}'+
                 '.progress div{background-color: #E7BA63 !important;}'+
                 'td.progressx>div.progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}'+
                 'table.table-layout tbody tr td{color: #252525 !important;}'+
-                'table.table-layout tbody tr td[style*="background-color:#255180"]{background-color: #E7BA63 !important;}'+ //ostatnio zaktualizowane
+                'table.table-layout tbody tr td[style*="background-color:#255180"],td[style*="background-color:#41d64b"] {background-color: #E7BA63 !important;}'+ //ostatnio zaktualizowane
                 'table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: #252525 !important;}'+ //ilość oczekujących
                 '.progress > span > span {color: #252525 !important;}'+ //procenty ukończenia
                 'table.table-layout tbody tr td{border-top: 1px solid #ffffff !important;border-left: 1px solid #ffffff !important;border-right: 1px solid #ffffff !important;border-bottom: 1px solid #bbbbbb !important;padding-top: 2px !important;padding-bottom: 2px !important;}'+
@@ -1325,8 +1334,8 @@ var misc = {
                 'section#content .tbl div[style*="background-color: #21262b"] .subtitle .sub h3{color: #FFFFFF !important;}'+
                 'section#content .tbl .mark{color: #FFFFFF !important;}'+
                 'textarea{background-color: #FFFFFF !important;color: #000000 !important;}'+
-                'div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;border: solid 1px white !important;line-height: inherit !important;}'+ //górna belka z datą i oceną
-                'section#content .page .tbl ~ div:not([class]){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
+                'div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;line-height: inherit !important;}'+ //górna belka z datą i oceną
+//                'section#content>.page>div:nth-child(2):not(.pagination):not(#n24h_tr_panel){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
                 'form#userForm{border-left:1px solid #000000; border-bottom:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
                 '.tresc2 div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}'+ //cytat
                 /**artykuły*/
@@ -1337,7 +1346,11 @@ var misc = {
                 '#comments blockquote, #comments .hidden, #comments code, #comments pre{color: #252525;}'+
                 '#comments a{color: #174B54;}'+
                 /**profil*/
-                ''+
+                'section#content .page > h2 {background: linear-gradient(#EDEEEE, #E2E3E3) !important;border-top: none !important;border-radius:5px;border-bottom:1px solid #B6B7B7 !important; color:#252525 !important;}'+
+                '#uddeim-overview .sectiontableentry1 {background-color: #ECECEC !important;}'+
+                '#uddeim-overview .sectiontableentry2 {background-color: #DEE0E2 !important;}'+
+                '#uddeim-overview>table {border-collapse: initial !important;}'+
+                '#uddeim-writeform input {background-color: #FFFFFF !important;}'+
                 /**seriale*/
                 'span.yellowfont {color: #000000 !important;}'+
                 /**serial*/
@@ -1370,41 +1383,6 @@ var misc = {
                 console.log('Błędny parametr "altskinid": '+options.getValue('altskinid', 'Err'));
         }
     },
-    /**
-        Obsługa kliknięcia przycisku otwierania/zamykania
-    */
-    openerClick: function(e) {
-        e = e || window.event;
-        var target = e.target || e.srcElement;
-        var opener_id=target.getAttribute('n24h_opener_id');
-        document.getElementById("toggleMe"+opener_id).style.visibility = "visible";
-        var tgcl=target.getAttribute('class');
-        tgcl=tgcl.replace(/n24h_opener_open/g, '').trim();
-        if(document.getElementById("toggleMe"+opener_id).style.display == "none" ) {
-            document.getElementById("toggleMe"+opener_id).style.display = "";
-            target.setAttribute('class', tgcl+' n24h_opener_open');
-        } else {
-            document.getElementById("toggleMe"+opener_id).style.display = "none";
-            target.setAttribute('class', tgcl);
-        }
-    },
-    /**
-        Popraw strzałki przy przyciskach otwierania/zamykania
-    */
-    fixOpener: function () {
-        var openers=document.querySelectorAll('div.opener[onclick*="toggleDisplay"]');  //wszystkie klikalne openery
-        var css='section#content .tbl .subtitle:hover .opener {background-image: url(run/images/arrs.png) !important;}'+
-                'section#content .tbl .subtitle .n24h_opener_open {background-image: url(run/images/arrsh.png) !important;}'+
-                'section#content .tbl .subtitle:hover .n24h_opener_open {background-image: url(run/images/arrsh.png) !important;}';
-        utils.insertcss(css);
-        for (var i=0;i<openers.length;i++)
-        {
-            var id=openers[i].getAttribute('onclick').replace(/toggledisplay\((\d+)\);/gi, '$1')
-            openers[i].setAttribute('n24h_opener_id', id);
-            openers[i].removeAttribute('onclick');
-            openers[i].addEventListener('click', misc.openerClick, false);
-        }
-    },
     shrinkButtons: function() {
         var css='.avatar-menu-icons[class*="avatar-main-menu"] > li {padding-left: 5px; padding-right: 5px;}';
         utils.insertcss(css);
@@ -1420,7 +1398,6 @@ var misc = {
             misc.altSkin();
         if (options.getValue('usesmallmenubuttons', false))
             misc.shrinkButtons();
-        misc.fixOpener();
     }
 };
 
@@ -1443,7 +1420,6 @@ var n24h = {
             serial.init();
         }
     },
-
     /**
     */
     init: function()
