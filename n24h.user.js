@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.1.2
+// @version         1.2
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -12,6 +12,14 @@
 // @grant           none
 // @run-at          document-start
 // ==/UserScript==
+
+/**
+
+    INFO:
+
+        Użytkownicy Opery 12.XX przed użyciem skryptu proszę zmienić nazwę usuwając z niej ".user", np. na "n24h.js"
+
+*/
 
 var icons = {
     staroff: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwUDR0hRbYVJwAAAjtJREFUOMudlM+rElEUx8+8lOGqE6PjzLyXGzczbhSVAqOyRYt2QYu3q7eqhehCJmwXiW8hSgvxByK0qFX/QIKLlsILIRI0uXlHQmgR+QZFEEZUnFaGr17O6x24i3vuuZ/DOed7L2UYBphZtVp9AAAQj8ffm8Va4ALGcVzKMAwKAEyBYBjGzlUulx9jjOcY43mlUjkyi98zyUeJopjgeZ7meZ4WBCEBANSuCzuBtVotFg6Hb2z2oVDoeq1Wi10KmMvlnKIoPnE6nb/77HK5LIIgPM1kMuw/S8rn8zcZhrlltVp9NpvNbbVa3TRNc3a73enz+fYRQmeS6rq+JoT8mM1m4+Vyqc3n85Gu6yNd1/F4PP5oYRjGL8vy81AotH+RiSOE9oLBoAcAPNv+drutEUIyV+r1+udGozFYr9cRURSdcAnrdDrfMcZKIpF4Q22EXSwW70qS9DoSicj/A2u1Wt9UVY0lk8kPAADU9kspFAoBr9f7LhqN+imKMtVvs9n8OhwOjxRF+XTulBVF6fZ6vcNut/vzAmWOCCGH27BzZWMYho1l2atmQJZlHYvFwmKqQ5fLdZ/neWQGFATBxnHcPVMgQiiA0Flev9/XVFXV/ogDhFDA9LdxOBwHm6YTQk4JISfT6fQlAAAh5FiW5duSJLm3Y3cCaZq+hjE+HQwGJ5qmvUilUl+2jh8WCoWAqqrHkiTdoWna89fT25ZNNps9YBjm7Wq1eqYoSm9XD0ulkh8AXk0mk0fpdHq88f8CflYIlVvjW0cAAAAASUVORK5CYII='
@@ -1395,8 +1403,8 @@ var misc = {
             misc.killCover();
         if (options.getValue('killimdbinfo', false))
             misc.killIMDBInfo();
-        if (options.getValue('usealtskin', false))
-            misc.altSkin();
+//        if (options.getValue('usealtskin', false))
+//            misc.altSkin();
         if (options.getValue('usesmallmenubuttons', false))
             misc.shrinkButtons();
     }
@@ -1421,15 +1429,26 @@ var n24h = {
             serial.init();
         }
     },
+    setAltSkin: function() {
+        if (options.getValue('usealtskin', false))
+        {
+            var head=document.querySelector('head');
+            var body=document.querySelector('body');
+            if ((!head)||(!body))
+            {
+                //upewnij się że mamy załadowane head i body
+                setTimeout(n24h.setAltSkin,1);
+            } else {
+                misc.altSkin();
+            }
+        }
+    },
     /**
     */
     init: function()
     {
-        //fix na Operę 12.x
-        if(navigator.userAgent.indexOf("Opera") != -1 )
-            window.addEventListener('load', n24h.onLoad, false);
-        else
-            window.addEventListener('DOMContentLoaded', n24h.onLoad, false);
+        window.addEventListener('DOMContentLoaded', n24h.onLoad, false);
+        n24h.setAltSkin();
     }
 };
 
