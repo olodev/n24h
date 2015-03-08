@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.1.1
+// @version         1.1.2
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -8,6 +8,7 @@
 // @include         http://napisy24.pl/*
 // @downloadURL     https://github.com/olodev/n24h/raw/master/n24h.user.js
 // @updateURL       https://github.com/olodev/n24h/raw/master/n24h.meta.js
+// @homepage        https://github.com/olodev/n24h
 // @grant           none
 // @run-at          document-start
 // ==/UserScript==
@@ -999,14 +1000,14 @@ var komentarze = {
         var opener=document.querySelector('div#n24h_comm_opener');
         if ((!emots) || (!form))
             return;
-        if (emots.getAttribute('style')=='display:none')
+        if (emots.style.display==='none')
         {
-            emots.setAttribute('style', 'display:block');
-            form.setAttribute('style', 'display:block');
+            emots.style.display='block';
+            form.style.display='block';
             opener.setAttribute('class', 'n24h_comm_opener n24h_comm_opener_open');
         } else {
-            emots.setAttribute('style', 'display:none');
-            form.setAttribute('style', 'display:none');
+            emots.style.display='none';
+            form.style.display='none';
             opener.setAttribute('class', 'n24h_comm_opener');
         }
     },
@@ -1335,7 +1336,7 @@ var misc = {
                 'section#content .tbl .mark{color: #FFFFFF !important;}'+
                 'textarea{background-color: #FFFFFF !important;color: #000000 !important;}'+
                 'div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;line-height: inherit !important;}'+ //górna belka z datą i oceną
-                'section#content>.page>div:nth-child(2):not([class]):not([id]){border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
+                'section#content>.page>div[style*="margin-left:"]{border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;margin-left:0px !important;padding-left: 15px;}'+
                 'form#userForm{border-left:1px solid #000000; border-bottom:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
                 '.tresc2 div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}'+ //cytat
                 /**artykuły*/
