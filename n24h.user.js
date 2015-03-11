@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.2
+// @version         1.2.1
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -1295,7 +1295,7 @@ var misc = {
                 '.category-modulemodule_frame li a:hover,aside .list li a:hover{color: #E8EEF0 !important;background-color: #1758A5 !important;text-decoration:underline;}'+
                 'aside{width: inherit !important;}'+
                 'aside .list{border: none !important;}'+
-                'section#content .tbl_top .head_r label {margin-right:10px !important;}'+
+//                'section#content .tbl_top .head_r label {margin-right:10px !important;}'+
                 '.moreInfo{background-color:#F7F8F8 !important;color:#252525 !important;}'+
                 '.page span{color: #252525 !important;}'+
                 '.infofooter{border-top: 1px solid #DBDCDC !important;background-color: #F7F8F8 !important;color:#252525 !important;}'+
@@ -1311,9 +1311,10 @@ var misc = {
                 'section#content .tbl div.mark:nth-child(3) {color: #545D62 !important;}'+
                 '.row-fluid {border-bottom: none !important;}'+
                 /**tłumaczenia*/
-                '.checkbox_outer input[type="checkbox"] + span{width:19px;height:17px;background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETc09F0PlAAAAGRJREFUOMtj/Pnz538GKoCr164xMDFQEQxZw+4wTJzDzsDensGwY0h7kxFb0rhz2IpB+8hZ7Do0NzL8DPCgfdJgxJ9o7zBMnKPNUPY6kWFj5QwGjyGbaBlH8ybJgOXqtWtUMwwAJg4sDO+yKkcAAAAASUVORK5CYII=) !important;}'+
-                '.checkbox_outer input[type="checkbox"]:checked + span{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETcCO+eaDQAAADxJREFUOMtj/Pnz538GKoCr164xMDFQEYwaNjIMuzORgZWdnYENhq0mMjDS02WMozlgGBnGcvXaNaoZBgBLTBH0qX8ljgAAAABJRU5ErkJggg==) !important;}'+
-                '.checkbox_outer input[type="checkbox"]:hover + span{border-bottom: 1px solid #FCB622;border-right: 1px solid #FCB622;border-radius: 5px;}'+
+                '.checkbox_outer input[type="checkbox"] + span, .checkbox_series input[type="checkbox"] + span, input[type="checkbox"] + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETc09F0PlAAAAGRJREFUOMtj/Pnz538GKoCr164xMDFQEQxZw+4wTJzDzsDensGwY0h7kxFb0rhz2IpB+8hZ7Do0NzL8DPCgfdJgxJ9o7zBMnKPNUPY6kWFj5QwGjyGbaBlH8ybJgOXqtWtUMwwAJg4sDO+yKkcAAAAASUVORK5CYII=) !important;}'+
+                '.checkbox_outer input[type="checkbox"] + span,.checkbox_series input[type="checkbox"] + span{width:19px;height:17px;}'+
+                '.checkbox_outer input[type="checkbox"]:checked + span, .checkbox_series input[type="checkbox"]:checked + span, input[type="checkbox"]:checked + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETcCO+eaDQAAADxJREFUOMtj/Pnz538GKoCr164xMDFQEYwaNjIMuzORgZWdnYENhq0mMjDS02WMozlgGBnGcvXaNaoZBgBLTBH0qX8ljgAAAABJRU5ErkJggg==) !important;}'+
+                '.checkbox_outer input[type="checkbox"]:hover + span, .checkbox_series input[type="checkbox"]:hover + span{border-bottom: 1px solid #FCB622;border-right: 1px solid #FCB622;border-radius: 5px;}'+
                 '.checkbox_outer{margin-top: 0px !important;top: 4px !important;}'+
                 'table.table-layout{border-top: none !important;}'+
                 'table.table-layout thead tr th{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;border: solid 1px white !important;line-height: inherit !important;}'+ //nagłówek tabelki
