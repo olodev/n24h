@@ -1,6 +1,6 @@
 /**
 n24 szare
-wersja 1.1
+wersja 1.2.2
 */
 .avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;}
 [class*="avatar-main-menu-szare"] > li:hover {border-bottom: 4px solid #1B4A7E;}
@@ -19,7 +19,7 @@ body{background-color:#D5D5D5 !important;color: #272727;}
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {background-color: #D5D5D5 !important;color: #000000 !important;}
 #search #phrase{color: #000000 !important;}
 section#content .tbl_top{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}
-.tbl_top2{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}
+.tbl_top1, .tbl_top2{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}
 section#content .tbl_top .head_r label{color:#000000 !important;}
 section#content .tbl_top .head_l{color:#000000 !important;}
 section#content .tbl{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}
@@ -50,7 +50,7 @@ section#content .page{color: #272829 !important;}
 section#content .tbl .subtitle .sub h2{color: #272829 !important;}
 select {background-color: #C5C5C5 !important;}
 a, a:link, a:visited {color: #1E519D;}
-.infoheader{color: #000000 !important;}
+.infoheader, .infoheader1{color: #000000 !important;}
 .row-fluid {border-bottom: none !important;}
 /**tłumaczenia*/
 table.table-layout thead tr th{background-color: #D5D5D5 !important;color: #272829 !important;border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;}

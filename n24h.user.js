@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.2.1
+// @version         1.2.2
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -1165,7 +1165,7 @@ var misc = {
                 'textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {background-color: #D5D5D5 !important;color: #000000 !important;}'+//pola tekstowe
                 '#search #phrase{color: #000000 !important;}'+//wyszukiwarka
                 'section#content .tbl_top{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+ //tabelka nagłówek
-                '.tbl_top2{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+ //tabelka nagłówek
+                '.tbl_top1, .tbl_top2{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+ //tabelka nagłówek
                 'section#content .tbl_top .head_r label{color:#000000 !important;}'+
                 'section#content .tbl_top .head_l{color:#000000 !important;}'+
                 'section#content .tbl{background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+
@@ -1196,7 +1196,7 @@ var misc = {
                 'section#content .tbl .subtitle .sub h2{color: #272829 !important;}'+
                 'select {background-color: #C5C5C5 !important;}'+
                 'a, a:link, a:visited {color: #1E519D;}'+
-                '.infoheader{color: #000000 !important;}'+
+                '.infoheader, .infoheader1{color: #000000 !important;}'+
                 '.row-fluid {border-bottom: none !important;}'+
                 /**tłumaczenia*/
                 'table.table-layout thead tr th{background-color: #D5D5D5 !important;color: #272829 !important;border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;}'+
@@ -1270,8 +1270,7 @@ var misc = {
                 'nav ul li.menu_add_napisy a:active{color: #CCC;text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.2);filter: dropshadow(color=#33000000, offx=0, offy=-1);border-top: 4px solid #2B68AB;border-bottom: 4px solid #1B4A7E;background-color: #1B4A7E;background-position: 21px 8px;}'+
                 'textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {background-color: #FFFFFF !important;color: #000000 !important;}'+//pola tekstowe
                 '#search #phrase{color: #000000 !important;}'+//wyszukiwarka
-                'section#content .tbl_top{background: linear-gradient(#EDEEEE, #E2E3E3) !important;border-top: none !important;border-radius:5px;border-bottom:1px solid #B6B7B7 !important;}'+ //tabelka nagłówek
-                'section#content .tbl_top2{background: linear-gradient(#EDEEEE, #E2E3E3) !important;border-top: none !important;border-radius:5px;border-bottom:1px solid #B6B7B7 !important;}'+ //tabelka nagłówek
+                'section#content .tbl_top, section#content .tbl_top1, section#content .tbl_top2{background: linear-gradient(#EDEEEE, #E2E3E3) !important;border-top: none !important;border-radius:5px;border-bottom:1px solid #B6B7B7 !important;}'+ //tabelka nagłówek
                 'section#content .tbl {width: inherit !important;}'+
                 'section#content .tbl_top .head_l{color:#000000 !important;}'+
                 'section#content .tbl{background-color:#F7F8F8 !important;border-top:none !important;border-bottom: 1px solid #DBDCDC;border-right: 1px solid #DBDCDC;}'+
@@ -1295,7 +1294,6 @@ var misc = {
                 '.category-modulemodule_frame li a:hover,aside .list li a:hover{color: #E8EEF0 !important;background-color: #1758A5 !important;text-decoration:underline;}'+
                 'aside{width: inherit !important;}'+
                 'aside .list{border: none !important;}'+
-//                'section#content .tbl_top .head_r label {margin-right:10px !important;}'+
                 '.moreInfo{background-color:#F7F8F8 !important;color:#252525 !important;}'+
                 '.page span{color: #252525 !important;}'+
                 '.infofooter{border-top: 1px solid #DBDCDC !important;background-color: #F7F8F8 !important;color:#252525 !important;}'+
@@ -1307,13 +1305,13 @@ var misc = {
                 '.head_r input[type="radio"] + label:hover{text-decoration:underline;}'+
                 '.head_r > label{color: #2C2C2C !important;}'+
                 'select {background-color: #FFFFFF !important;}'+
-                '.infoheader{color: #20487F !important;}'+
+                '.infoheader, .infoheader1{color: #20487F !important;}'+
                 'section#content .tbl div.mark:nth-child(3) {color: #545D62 !important;}'+
                 '.row-fluid {border-bottom: none !important;}'+
                 /**tłumaczenia*/
-                '.checkbox_outer input[type="checkbox"] + span, .checkbox_series input[type="checkbox"] + span, input[type="checkbox"] + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETc09F0PlAAAAGRJREFUOMtj/Pnz538GKoCr164xMDFQEQxZw+4wTJzDzsDensGwY0h7kxFb0rhz2IpB+8hZ7Do0NzL8DPCgfdJgxJ9o7zBMnKPNUPY6kWFj5QwGjyGbaBlH8ybJgOXqtWtUMwwAJg4sDO+yKkcAAAAASUVORK5CYII=) !important;}'+
+                '.checkbox_outer input[type="checkbox"] + span, .checkbox_series input[type="checkbox"] + span, input[type="checkbox"]:not([id="comments-form-subscribe"]) + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETc09F0PlAAAAGRJREFUOMtj/Pnz538GKoCr164xMDFQEQxZw+4wTJzDzsDensGwY0h7kxFb0rhz2IpB+8hZ7Do0NzL8DPCgfdJgxJ9o7zBMnKPNUPY6kWFj5QwGjyGbaBlH8ybJgOXqtWtUMwwAJg4sDO+yKkcAAAAASUVORK5CYII=) !important;}'+
                 '.checkbox_outer input[type="checkbox"] + span,.checkbox_series input[type="checkbox"] + span{width:19px;height:17px;}'+
-                '.checkbox_outer input[type="checkbox"]:checked + span, .checkbox_series input[type="checkbox"]:checked + span, input[type="checkbox"]:checked + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETcCO+eaDQAAADxJREFUOMtj/Pnz538GKoCr164xMDFQEYwaNjIMuzORgZWdnYENhq0mMjDS02WMozlgGBnGcvXaNaoZBgBLTBH0qX8ljgAAAABJRU5ErkJggg==) !important;}'+
+                '.checkbox_outer input[type="checkbox"]:checked + span, .checkbox_series input[type="checkbox"]:checked + span, input[type="checkbox"]:checked:not([id="comments-form-subscribe"]) + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETcCO+eaDQAAADxJREFUOMtj/Pnz538GKoCr164xMDFQEYwaNjIMuzORgZWdnYENhq0mMjDS02WMozlgGBnGcvXaNaoZBgBLTBH0qX8ljgAAAABJRU5ErkJggg==) !important;}'+
                 '.checkbox_outer input[type="checkbox"]:hover + span, .checkbox_series input[type="checkbox"]:hover + span{border-bottom: 1px solid #FCB622;border-right: 1px solid #FCB622;border-radius: 5px;}'+
                 '.checkbox_outer{margin-top: 0px !important;top: 4px !important;}'+
                 'table.table-layout{border-top: none !important;}'+
