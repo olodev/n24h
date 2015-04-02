@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.2.2
+// @version         1.3
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -338,11 +338,17 @@ var options = {
                     'margin-bottom: 0px;'+
                     'background-color: #EEEEEE;'+
                     'color: #555555;'+
+                    'border: 1px solid #CCCCCC;'+
+                    'margin-left: 0px;'+
+                    'padding: 5px;'+
                     '}'+
                 '.n24h_opt_area:focus{'+
                     'color: #555555;'+
                     '}'+
-                '.n24h_options_panel_r > div > input{'+
+                '.n24h_options_panel_r > label{'+
+                    'margin-bottom: 0px;'+
+                    '}'+
+                '.n24h_options_panel_r > label > input{'+
                     'margin: 0px;'+
                     'margin-top: -4px;'+
                     'display: inline;'+
@@ -380,25 +386,26 @@ var options = {
                                             '<div class="n24h_options_panel_button" data-n24h-optiontype="debug">Debug</div>'+
                                         '</div>'+
                                         '<div class="n24h_options_panel_r" data-n24h-optionpanel="general">'+
-                                            '<div><input type="checkbox" data-n24h-checkbox="fixsearch"> Zapamiętaj tekst w wyszukiwarce</div>'+
-                                            '<div><input type="checkbox" data-n24h-checkbox="killcover"> Usuń okładki filmów/seriali</div>'+
-                                            '<div><input type="checkbox" data-n24h-checkbox="killimdbinfo"> Usuń info o serialu/ocenę IMDB</div>'+
-                                            '<div><input type="checkbox" data-n24h-checkbox="hideemotspanel"> Ukrywaj panel z emotikonami i dodawaniem komentarza</div>'+
-                                            '<div><input type="checkbox" data-n24h-checkbox="fixcomments"> W komentarzach propozycję poprawek wyświetlaj czcionką o stałej szerokości</div>'+
-                                            '<div><input type="checkbox" data-n24h-checkbox="shown24info"> Na stronie z tłumaczeniami pokaż info N24/IMDB</div>'+
-                                                '<div class="n24_option_level2" style="display:none"><input type="checkbox" data-n24h-checkbox="useimdbinfo"> Zastąp info N24 linkiem do IMDB</div>'+
-                                            '<div><input type="checkbox" data-n24h-checkbox="usealtskin"> Używaj alternatywnej skórki</div>'+
-                                                '<div class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="1"> szara</div>'+
-                                                '<div class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="2"> n24 classic</div>'+
-                                            '<div><input type="checkbox" data-n24h-checkbox="usesmallmenubuttons"> Zmniejsz rozmiar przycisków menu</div>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="fixsearch"> Zapamiętaj tekst w wyszukiwarce</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="killcover"> Usuń okładki filmów/seriali</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="killimdbinfo"> Usuń info o serialu/ocenę IMDB</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="hideemotspanel"> Ukrywaj panel z emotikonami i dodawaniem komentarza</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="fixcomments"> W komentarzach propozycję poprawek wyświetlaj czcionką o stałej szerokości</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="shown24info"> Na stronie z tłumaczeniami pokaż info N24/IMDB</label>'+
+                                                '<label class="n24_option_level2" style="display:none"><input type="checkbox" data-n24h-checkbox="useimdbinfo"> Zastąp info N24 linkiem do IMDB</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="usealtskin"> Używaj alternatywnej skórki</label>'+
+                                                '<label class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="1"> szara</label>'+
+                                                '<label class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="2"> n24 classic</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="usesmallmenubuttons"> Zmniejsz rozmiar przycisków menu</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="removetargetblank"> Usuń target="_blank" ze wszystkich odnośników (nie otwieraj w nowej karcie)</label>'+
                                         '</div>'+
                                         '<div style="display:none" class="n24h_options_panel_r" data-n24h-optionpanel="shows">'+
-                                            '<label>Ulubione filmy/seriale (jeden film/serial na linię)</label>'+
+                                            '<span>Ulubione filmy/seriale (jeden film/serial na linię)</span>'+
                                             '<textarea id="n24h_opt_areashows" class="n24h_opt_area" rows="10" ></textarea>'+
                                             '<button id="n24h_opt_btn_save" class="n24h_opt_button">Zapisz</button>'+
                                         '</div>'+
                                         '<div style="display:none" class="n24h_options_panel_r" data-n24h-optionpanel="debug">'+
-                                            '<label>Informacje do debugowania</label>'+
+                                            '<span>Informacje do debugowania</span>'+
                                             '<textarea id="n24h_opt_areadebug" rows="10" class="n24h_opt_area" readOnly></textarea>'+
                                             '<button id="n24h_opt_btn_killshows" class="n24h_opt_button">Usuń wszystkie ulubione filmy/seriale</button>'+
                                             '<button id="n24h_opt_btn_killopt" class="n24h_opt_button">Usuń wszystkie ustawienia (bez filmów/seriali)</button>'+
@@ -414,11 +421,11 @@ var options = {
         //checkboxy
         var opt_checkboxs=document.querySelectorAll('input[data-n24h-checkbox]');
         for (var i=0;i<opt_checkboxs.length;i++)
-            opt_checkboxs[i].addEventListener('click', options.checkboxClick, false);
+            opt_checkboxs[i].addEventListener('change', options.checkboxClick, false);
         //radio
        var opt_radios=document.querySelectorAll('input[data-n24h-radio]');
         for (var i=0;i<opt_radios.length;i++)
-            opt_radios[i].addEventListener('click', options.radioClick, false);
+            opt_radios[i].addEventListener('change', options.radioClick, false);
         //sekcje
         var opt_types=document.querySelectorAll('div[data-n24h-optiontype]');
         for (var i=0;i<opt_types.length;i++)
@@ -1395,6 +1402,17 @@ var misc = {
         var css='.avatar-menu-icons[class*="avatar-main-menu"] > li {padding-left: 5px; padding-right: 5px;}';
         utils.insertcss(css);
     },
+    /**
+        Usuń target="_blank" ze wszystkich odnośników
+    */
+    killTargetBlank: function()
+    {
+        var targets=document.querySelectorAll('a[target="_blank"]');
+        for (var i=0;i<targets.length;i++)
+        {
+            targets[i].removeAttribute('target');
+        }
+    },
     init: function() {
         if (options.getValue('fixsearch', false))
             misc.fixSearch();
@@ -1402,8 +1420,6 @@ var misc = {
             misc.killCover();
         if (options.getValue('killimdbinfo', false))
             misc.killIMDBInfo();
-//        if (options.getValue('usealtskin', false))
-//            misc.altSkin();
         if (options.getValue('usesmallmenubuttons', false))
             misc.shrinkButtons();
     }
@@ -1427,6 +1443,8 @@ var n24h = {
         {
             serial.init();
         }
+        if (options.getValue('removetargetblank', false))
+            misc.killTargetBlank();
     },
     setAltSkin: function() {
         if (options.getValue('usealtskin', false))
