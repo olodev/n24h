@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.3
+// @version         1.3.1
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -1155,8 +1155,9 @@ var misc = {
     */
     altSkin: function() {
         /** Szara start*/
-        var altcss1='.avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;}'+//menu: forum, irc, rss
-                '[class*="avatar-main-menu-szare"] > li:hover {border-bottom: 4px solid #1B4A7E;}'+
+        var altcss1='.avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;border-bottom: 4px solid #1B4A7E;}'+//menu: forum, irc, rss
+                '[class*="avatar-main-menu"] > li:hover {border-bottom: 4px solid #1B4A7E;line-height: 18px;height: 18px;}'+
+                '[class*="avatar-main-menu"] > li:hover > a {top:0px;}'+
                 'nav{background-color: #2B68AB !important;}'+//pusta przestrzeń między menu a dodaj napisy
                 'nav ul li.menu_add_napisy a{background-color: #2B68AB;border-bottom: 4px solid #1B4A7E;}'+//przycisk dodaj napisy
                 'nav ul li.menu_add_napisy a:hover{background-color: #1B4A7E;color: #CCC;background-position: 21px 12px;}'+
@@ -1269,8 +1270,9 @@ var misc = {
                 '.logo .screen .subline2{background-color: #5592D5 !important;}'+
                 '.logo h1{color: #5592D5 !important;}'+
                 '.logo h2{color: #5592D5 !important;}'+
-                '.avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;}'+//menu: forum, irc, rss
-                '[class*="avatar-main-menu-szare"] > li:hover {border-bottom: 4px solid #1B4A7E;}'+
+                '.avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;border-bottom: 4px solid #1B4A7E;}'+//menu: forum, irc, rss
+                '[class*="avatar-main-menu"] > li:hover {border-bottom: 4px solid #1B4A7E;line-height: 18px;height: 18px;}'+
+                '[class*="avatar-main-menu"] > li:hover > a {top:0px;}'+
                 'nav{background-color: #2B68AB !important;}'+//pusta przestrzeń między menu a dodaj napisy
                 'nav ul li.menu_add_napisy a{background-color: #2B68AB;border-bottom: 4px solid #1B4A7E;}'+//przycisk dodaj napisy
                 'nav ul li.menu_add_napisy a:hover{background-color: #1B4A7E;color: #CCC;background-position: 21px 12px;}'+
