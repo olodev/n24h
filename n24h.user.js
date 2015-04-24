@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.3.1
+// @version         1.3.2
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -1041,7 +1041,7 @@ var komentarze = {
                     'border-color:#32383E;'+
                     'padding: 3px;'+
                     'margin-left: 10px;'+
-                    'margin-top: -25px;'+
+                    'float: left;'+
                 '}'+
                 'div.n24h_comm_opener:hover{'+
                     'background-color: #202428;'+
@@ -1052,13 +1052,16 @@ var komentarze = {
         var footer=document.querySelector('div.moreInfo>div.infofooter');
         if (!footer)
             return;
+        var footermain=footer.querySelector('#footerMain');
+        if (!footermain)
+            return;
         utils.insertcss(css);
         var opener=document.createElement('div');
         opener.setAttribute('id', 'n24h_comm_opener');
         opener.setAttribute('class', options.getValue('hideemotspanel', false)?'n24h_comm_opener':'n24h_comm_opener n24h_comm_opener_open');
         opener.setAttribute('title', 'Pokaż/ukryj dodawanie komentarza');
         opener.addEventListener('click', komentarze.ShowHideEmots, false);
-        footer.appendChild(opener);
+        footer.insertBefore(opener,footermain);
         footer.setAttribute('style', 'padding-bottom: 5px; padding-top: 5px;');
         if (options.getValue('hideemotspanel', false))
             komentarze.ShowHideEmots();
