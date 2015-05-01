@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.3.2
+// @version         1.3.3
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -944,12 +944,13 @@ var tlumaczenia = {
             for (var i = 0; i < trs.length; i++)
             {
                 var title=trs[i].querySelector('td:nth-child(1)>div');
-                var info=trs[i].querySelector('td:nth-child(2)>div>a[href*="imid=tt"], a[href*="title/tt"]');
+                var info=trs[i].querySelector('td:nth-child(2)>div>a[href*="serial/"], a[href*="title/tt"]');
                 if (info)
                     if (options.getValue('useimdbinfo', false))
-                        title.innerHTML='<a href="'+info.href.replace(/http:\/\/napisy24.pl\/serial\?imid=/, 'http://www.imdb.com/title/')+'/" target="_blank">'+title.textContent+'</a>';
-                    else
                     {
+                        var imdbid=trs[i].getAttribute('data-oczekuja').replace(/(.*imdbid=)(\d+)(.*)/g, '$2');
+                        title.innerHTML='<a href="http://www.imdb.com/title/tt'+imdbid+'/" target="_blank">'+title.textContent+'</a>';
+                    } else {
                         var target=info.href.indexOf('imdb.com')!=-1?' target="_blank"':'';
                         title.innerHTML='<a href="'+info.href+'"'+target+'>'+title.textContent+'</a>';
                     }
@@ -1085,7 +1086,8 @@ var serial = {
         if (!info)
             return;
         var link=document.createElement('a');
-        var href=document.URL.toLowerCase().replace(/.*(tt\d+).*/g, 'http://www.imdb.com/title/$1/');
+        var imdbid=document.querySelector('#notify_napisy').getAttribute('data-imdb');
+        var href='http://www.imdb.com/title/'+imdbid+'/';
         link.setAttribute('href', href);
         link.setAttribute('target', '_blank');
         link.innerHTML='IMDB';
@@ -1444,7 +1446,7 @@ var n24h = {
         {
             komentarze.init();
         }
-        if(location.pathname.toLowerCase() === '/serial')
+        if((location.pathname.toLowerCase() === '/serial')||(location.pathname.toLowerCase().contains('/serial/')))
         {
             serial.init();
         }
