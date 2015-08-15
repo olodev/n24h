@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.3.4
+// @version         1.4
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -22,14 +22,17 @@
 */
 
 var icons = {
-    staroff: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwUDR0hRbYVJwAAAjtJREFUOMudlM+rElEUx8+8lOGqE6PjzLyXGzczbhSVAqOyRYt2QYu3q7eqhehCJmwXiW8hSgvxByK0qFX/QIKLlsILIRI0uXlHQmgR+QZFEEZUnFaGr17O6x24i3vuuZ/DOed7L2UYBphZtVp9AAAQj8ffm8Va4ALGcVzKMAwKAEyBYBjGzlUulx9jjOcY43mlUjkyi98zyUeJopjgeZ7meZ4WBCEBANSuCzuBtVotFg6Hb2z2oVDoeq1Wi10KmMvlnKIoPnE6nb/77HK5LIIgPM1kMuw/S8rn8zcZhrlltVp9NpvNbbVa3TRNc3a73enz+fYRQmeS6rq+JoT8mM1m4+Vyqc3n85Gu6yNd1/F4PP5oYRjGL8vy81AotH+RiSOE9oLBoAcAPNv+drutEUIyV+r1+udGozFYr9cRURSdcAnrdDrfMcZKIpF4Q22EXSwW70qS9DoSicj/A2u1Wt9UVY0lk8kPAADU9kspFAoBr9f7LhqN+imKMtVvs9n8OhwOjxRF+XTulBVF6fZ6vcNut/vzAmWOCCGH27BzZWMYho1l2atmQJZlHYvFwmKqQ5fLdZ/neWQGFATBxnHcPVMgQiiA0Flev9/XVFXV/ogDhFDA9LdxOBwHm6YTQk4JISfT6fQlAAAh5FiW5duSJLm3Y3cCaZq+hjE+HQwGJ5qmvUilUl+2jh8WCoWAqqrHkiTdoWna89fT25ZNNps9YBjm7Wq1eqYoSm9XD0ulkh8AXk0mk0fpdHq88f8CflYIlVvjW0cAAAAASUVORK5CYII='
-    ,staron: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwUDR8nnuPSkAAAAsZJREFUOMulk0tvG1UUx//n3Jm5M2NnUjueOnYCoptmQYNUSKEqFYss2CGqloeQ6AoWkbJtdhVS8wX4ALBAoq14NGXBAqFu2oqmFSgEUKqySRcNIbUzcRw7bTyx554unGeBuApHOrpX5179dF5/EhF0sj8mgrcA4KUzte87/bXwDOYGqXMiIAAdgdzpw68T6Q97+sPXcs+Fr05fTZ/9n0AiP3BHPV9pz1faTbujANG+gdMT/khYzA6ZJIZJYoR9mVemJ/yRfQF/ukwZL3A+sl2xEhMjMQ042lhe2v74+hd04D9runPRPu767glWPGA5Vo6YckpJj+Vwpjvn9bISFkk2OwDTIrMSNRZaTVORhCKTSLnVMuXWeuveWn31tqU990i2WBjL9x/sNSZGksQwZh3GbJ5NiCSACEAMVjZnC34fs+5jdqCUBrNG+UE5qii+QCKC374L3s4Wcp+GxeyhLWgSb0HFNCEQECkwO21XGopdsNKI5qtz0cNo7OXT9a9pc7Gnv/HeCPKZz/LPZw+bpIHtbBswSQwRsw1SLpg1WGmU5qr3q+XqyNC7jWu7hnL0vbWb1b+W3pmfXZjZvRkEgEBE7esO+3u2/Gc9qr+/CQMAelp6ty7SQPGF8EYm7+VNst4uWZqAtEsmdsDKwfLDuLw0Xxs+9kF8d0/psYHvem7AZAFsAAhEeGPIDCILTBZcX9Jxsm511LLb5b3pBymPWNr9IAYkgQAg8EaWFvxA+77nDQP4fU+gpfSg7XgQacKAwKKwUqpFYKA77MoRGMQWLGXD1s5gxwwdTxeYHYghVKOVxUqpOtlcjT8BgOrS4/FMeOD1bL4nR2zDcXShI1DZdrFSWl5cLi1OrlUenR86G8/seD41dUkP1qLV8Uw+PGk7uu8f2hORLb/5JQpTV1I//nzFeXFn/N/8l6/SR6a+Tf0w+TmyO+NPAC36SwTUSJYTAAAAAElFTkSuQmCC'
-    ,search: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABJdEVYdENvcHlyaWdodABQdWJsaWMgRG9tYWluIGh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL3B1YmxpY2RvbWFpbi9Zw/7KAAABTklEQVQokY2PP0hCYRTFf/eZFThULhG0F0UQ4djgZsaHS0FBUK7NTkFNRVNbGER/oEVoCnyfgptbNAdRYwQ5BqJS6Ou2fMoriTrbvef+uOeIqgJQLpfngyDYFpElYAh4E5GTWCx2lkwm3wlJVBXf97MicgoM0q/7SCSymE6n692FZ61dEJELB+RFJNHpdMZUdQ2oA3NBEFx9++T7fglYBm6MMSuAds1isTjled4j8BmNRidTqVQNwANm3U0+DABkMpknoAl47XY70YvnSiMiEz/LVKvVAaDh/NcwZAFUNVupVOJhqNFoHAPjQK3Vaj2EO00Dt8Ao8AIcAXEXe9Xd7RljDnqQqmKtTQIFoC+iUwfYMsYUepDLP9xsNjdVdUZERlT1DvgALh0YABvGmOse9JustTvAYfejqq7/CTlwF9h34/O/IIBSqZRT1Rxw/gU4l4oisfSMMQAAAABJRU5ErkJggg=='
-    ,gear: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwZCB0WCaqqHgAAA3FJREFUOMulVN1LI1cUP2fuHchmQ12jMRKNRIwFG1jb3ARhxIbp0vSh6EP70AUpeWj/o1LYV5XtUx8Ka0ultKDJiB9MaAyCYASt+dB80padWZmZe/vQzDYyrvvQ83Tvub/7Ox+/cy8KIeA+SyaTHyLiAgAAIUQ7ODjYvQ9P4S0my/LPc3NzFADg5OTkFQC8cx9eGtyoqupTFOUZY2wZAIAx9phSKhRFkRVFkSVJkpPJ5Hv9s88URXmmqqpvkAPdkhVFeSCE+CUcDrNOp8Mdx6lxzkOZTGZoZmYGAQBOT095Pp//S5KkNiEkEgwGpWazqSPix7u7u+atkoUQ30YiEZbNZn2O40C3250lhMDIyMjr6LOzs9Lw8PAjzvmjYDAIhBDY2tpiV1dX3wDA17cIbdv+qdVqfeE4DlBKYWxs7M4ejY6OwsAd6HQ69s3NzQ+eHh4eHn5v23a92+16SGq1GtRqNY+/2WyCZVl/6Lq+6VGZMfZYluWQJP2n08XFhSgUCoZlWfW+4pGlpSX/1NQUAgBQSoFzPskYY7qu6wAAmEwmP6KU/kgp5YuLiw/i8Tj2ewobGxuGaZpPdV1/0Q+6HAgEvltdXQ24QSuVitA0zbRtW7Jt+1MJEdOJRILmcjm/SwYAcHl5CY7jVF0yAABd119YltUYLD8ej2Mul/MnEgmKiGkJAAAR7xQAEfkdPvEG7L+iIGKxXC6L9fV1o1KpvAZHo1EghERTqVTW9aVSqSwhJDIxMQGDJa+trRnlclkgYhGFEICIyBj7gFL628rKypA7Gufn57xQKJiO49T6bzmSyWT80WhUclXe3Nz807KsJ8VisSiEELQvgACAoqIoTc75kBs9FotJsVjsYbVafRcRYTAzdw4JIdW9vT3dM4fpdHqFEDIRDAY9/ZmcnPSQuUOOiNOMsU88hLIsfx4OhwkhBGzbhlarBb1ez0PS6/Wg1WqBbdsgyzKEQiHq8/meej6H+fn5h36//9fx8fH32+22wzlvOI4zpqpqYHp6GgEAzs7OxPb29t+EkDYhZDwUCpF6vf67YRhPSqXSy1sZlkqll4ioXl9fPzcM40tN0+KWZak7Ozumi8nn868sy1rSNG3GNM2vGo3Gc0RUXbJbGb7JFhYWzEQiQQEAjo+Pb/b39wP/68cWQiwfHR2x/vrwbfh/AK2fjH9FpXiPAAAAAElFTkSuQmCC'
+    staroff:  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwUDR0hRbYVJwAAAjtJREFUOMudlM+rElEUx8+8lOGqE6PjzLyXGzczbhSVAqOyRYt2QYu3q7eqhehCJmwXiW8hSgvxByK0qFX/QIKLlsILIRI0uXlHQmgR+QZFEEZUnFaGr17O6x24i3vuuZ/DOed7L2UYBphZtVp9AAAQj8ffm8Va4ALGcVzKMAwKAEyBYBjGzlUulx9jjOcY43mlUjkyi98zyUeJopjgeZ7meZ4WBCEBANSuCzuBtVotFg6Hb2z2oVDoeq1Wi10KmMvlnKIoPnE6nb/77HK5LIIgPM1kMuw/S8rn8zcZhrlltVp9NpvNbbVa3TRNc3a73enz+fYRQmeS6rq+JoT8mM1m4+Vyqc3n85Gu6yNd1/F4PP5oYRjGL8vy81AotH+RiSOE9oLBoAcAPNv+drutEUIyV+r1+udGozFYr9cRURSdcAnrdDrfMcZKIpF4Q22EXSwW70qS9DoSicj/A2u1Wt9UVY0lk8kPAADU9kspFAoBr9f7LhqN+imKMtVvs9n8OhwOjxRF+XTulBVF6fZ6vcNut/vzAmWOCCGH27BzZWMYho1l2atmQJZlHYvFwmKqQ5fLdZ/neWQGFATBxnHcPVMgQiiA0Flev9/XVFXV/ogDhFDA9LdxOBwHm6YTQk4JISfT6fQlAAAh5FiW5duSJLm3Y3cCaZq+hjE+HQwGJ5qmvUilUl+2jh8WCoWAqqrHkiTdoWna89fT25ZNNps9YBjm7Wq1eqYoSm9XD0ulkh8AXk0mk0fpdHq88f8CflYIlVvjW0cAAAAASUVORK5CYII='
+    ,staron:  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwUDR8nnuPSkAAAAsZJREFUOMulk0tvG1UUx//n3Jm5M2NnUjueOnYCoptmQYNUSKEqFYss2CGqloeQ6AoWkbJtdhVS8wX4ALBAoq14NGXBAqFu2oqmFSgEUKqySRcNIbUzcRw7bTyx554unGeBuApHOrpX5179dF5/EhF0sj8mgrcA4KUzte87/bXwDOYGqXMiIAAdgdzpw68T6Q97+sPXcs+Fr05fTZ/9n0AiP3BHPV9pz1faTbujANG+gdMT/khYzA6ZJIZJYoR9mVemJ/yRfQF/ukwZL3A+sl2xEhMjMQ042lhe2v74+hd04D9runPRPu767glWPGA5Vo6YckpJj+Vwpjvn9bISFkk2OwDTIrMSNRZaTVORhCKTSLnVMuXWeuveWn31tqU990i2WBjL9x/sNSZGksQwZh3GbJ5NiCSACEAMVjZnC34fs+5jdqCUBrNG+UE5qii+QCKC374L3s4Wcp+GxeyhLWgSb0HFNCEQECkwO21XGopdsNKI5qtz0cNo7OXT9a9pc7Gnv/HeCPKZz/LPZw+bpIHtbBswSQwRsw1SLpg1WGmU5qr3q+XqyNC7jWu7hnL0vbWb1b+W3pmfXZjZvRkEgEBE7esO+3u2/Gc9qr+/CQMAelp6ty7SQPGF8EYm7+VNst4uWZqAtEsmdsDKwfLDuLw0Xxs+9kF8d0/psYHvem7AZAFsAAhEeGPIDCILTBZcX9Jxsm511LLb5b3pBymPWNr9IAYkgQAg8EaWFvxA+77nDQP4fU+gpfSg7XgQacKAwKKwUqpFYKA77MoRGMQWLGXD1s5gxwwdTxeYHYghVKOVxUqpOtlcjT8BgOrS4/FMeOD1bL4nR2zDcXShI1DZdrFSWl5cLi1OrlUenR86G8/seD41dUkP1qLV8Uw+PGk7uu8f2hORLb/5JQpTV1I//nzFeXFn/N/8l6/SR6a+Tf0w+TmyO+NPAC36SwTUSJYTAAAAAElFTkSuQmCC'
+    ,starign: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3wgOBzkLYwp6HwAAAvZJREFUOMuNlEtIG1EUhv+ZPEYnajSJxQQsSgjNqjZGW2uhoCioRdHSrgpCsZvErkKlpIRiKQhBJUFFI7RSxZ0GDHGjG9sKpRTJxkElPhc11mQmpfiIGZXbhQ/U+MiBu7jnnvNx/nvOvUAS1t3dXdfV1fU0mVg6mSC1Wv1GrVbbAFBn/QSgCfCWAEokay6X6wXHcTsLCwt7Ho+n8QJsgACEAO5kK6R0Ot3rnJwcVqPRMJmZmdbW1laaABIAAwBeAvgOwHGSIL2O1tPTYzWZTIUne7PZXLjF8xYA9wE0AvgG4AkF7Nwotb29XTEyMjLD8zw5XZub5HdxsXAsc4IAqQmS2traHiiVyhK5XG5kWVbNMIxGKpVqWJbNMhqNWpZlJQCAw0OkNTeDGR1F1GTa+2G3B+M0HYnFYkIsFuNFUeSi0ehPqUqlMuXn578zm823riz38BBpVisYrxf7FRXA4GDKQ4a5e9ogQhAIBITV1dWPkvHx8ZnS0tIlURQfabXaxPbv7yO9qQmMzwexogLbQ0MgDHMuhOO49WAwaLNYLJ9OnW63+7Hf7w+eu7NQiMRraggBSLyykgihEDl3zvNkcnJypbe3t/pSZZ2dnQVer5eLRCJHsOrqI1htLeE3Ns6BIpEIGRsbm3O73cXXdrejo8P4dWIiHK+qOoLV1SXAeJ4nU1NTf5xO552L+QlzKA+FMgt9PpV8ehpifT22PB5AmjiuGRkZ6fF4XH4tkACp/4aHh9LDYYnY0ICtvr5LYQCQnZ3NZmVllQOYvRRIABaATxkOG+INDdg+hhFCsLS0JFAURen1ehVFHf0PLMtCoVAUXFrhMcwPoHy9qCiU0t+vIxSF1ZUVfm5ubkYQhA80Te8tLi469Hp9mcFgUFEUBYVCob1KsgdAOYDPAYejJGdtTTY/Px8QBOG9zWb7dSb+mcvlure8vOzIy8srk8lkuoSnd1zhbQCv2ltaelNyc78cHBy02Gy22RumwSyTyZy7u7vP7Xb73xP/f4cxclaSnWDmAAAAAElFTkSuQmCC'
+    ,search:  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABJdEVYdENvcHlyaWdodABQdWJsaWMgRG9tYWluIGh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL3B1YmxpY2RvbWFpbi9Zw/7KAAABTklEQVQokY2PP0hCYRTFf/eZFThULhG0F0UQ4djgZsaHS0FBUK7NTkFNRVNbGER/oEVoCnyfgptbNAdRYwQ5BqJS6Ou2fMoriTrbvef+uOeIqgJQLpfngyDYFpElYAh4E5GTWCx2lkwm3wlJVBXf97MicgoM0q/7SCSymE6n692FZ61dEJELB+RFJNHpdMZUdQ2oA3NBEFx9++T7fglYBm6MMSuAds1isTjled4j8BmNRidTqVQNwANm3U0+DABkMpknoAl47XY70YvnSiMiEz/LVKvVAaDh/NcwZAFUNVupVOJhqNFoHAPjQK3Vaj2EO00Dt8Ao8AIcAXEXe9Xd7RljDnqQqmKtTQIFoC+iUwfYMsYUepDLP9xsNjdVdUZERlT1DvgALh0YABvGmOse9JustTvAYfejqq7/CTlwF9h34/O/IIBSqZRT1Rxw/gU4l4oisfSMMQAAAABJRU5ErkJggg=='
+    ,gear:    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwZCB0WCaqqHgAAA3FJREFUOMulVN1LI1cUP2fuHchmQ12jMRKNRIwFG1jb3ARhxIbp0vSh6EP70AUpeWj/o1LYV5XtUx8Ka0ultKDJiB9MaAyCYASt+dB80padWZmZe/vQzDYyrvvQ83Tvub/7Ox+/cy8KIeA+SyaTHyLiAgAAIUQ7ODjYvQ9P4S0my/LPc3NzFADg5OTkFQC8cx9eGtyoqupTFOUZY2wZAIAx9phSKhRFkRVFkSVJkpPJ5Hv9s88URXmmqqpvkAPdkhVFeSCE+CUcDrNOp8Mdx6lxzkOZTGZoZmYGAQBOT095Pp//S5KkNiEkEgwGpWazqSPix7u7u+atkoUQ30YiEZbNZn2O40C3250lhMDIyMjr6LOzs9Lw8PAjzvmjYDAIhBDY2tpiV1dX3wDA17cIbdv+qdVqfeE4DlBKYWxs7M4ejY6OwsAd6HQ69s3NzQ+eHh4eHn5v23a92+16SGq1GtRqNY+/2WyCZVl/6Lq+6VGZMfZYluWQJP2n08XFhSgUCoZlWfW+4pGlpSX/1NQUAgBQSoFzPskYY7qu6wAAmEwmP6KU/kgp5YuLiw/i8Tj2ewobGxuGaZpPdV1/0Q+6HAgEvltdXQ24QSuVitA0zbRtW7Jt+1MJEdOJRILmcjm/SwYAcHl5CY7jVF0yAABd119YltUYLD8ej2Mul/MnEgmKiGkJAAAR7xQAEfkdPvEG7L+iIGKxXC6L9fV1o1KpvAZHo1EghERTqVTW9aVSqSwhJDIxMQGDJa+trRnlclkgYhGFEICIyBj7gFL628rKypA7Gufn57xQKJiO49T6bzmSyWT80WhUclXe3Nz807KsJ8VisSiEELQvgACAoqIoTc75kBs9FotJsVjsYbVafRcRYTAzdw4JIdW9vT3dM4fpdHqFEDIRDAY9/ZmcnPSQuUOOiNOMsU88hLIsfx4OhwkhBGzbhlarBb1ez0PS6/Wg1WqBbdsgyzKEQiHq8/meej6H+fn5h36//9fx8fH32+22wzlvOI4zpqpqYHp6GgEAzs7OxPb29t+EkDYhZDwUCpF6vf67YRhPSqXSy1sZlkqll4ioXl9fPzcM40tN0+KWZak7Ozumi8nn868sy1rSNG3GNM2vGo3Gc0RUXbJbGb7JFhYWzEQiQQEAjo+Pb/b39wP/68cWQiwfHR2x/vrwbfh/AK2fjH9FpXiPAAAAAElFTkSuQmCC'
 };
 
 var options_db      = 'n24h_options';
 var shows_db        = 'n24h_shows';
+var au_ignore_db    = 'n24h_authors_ignore';
+var tr_ignore_db    = 'n24h_translations_ignore';
 
 var utils = {
     /**
@@ -114,12 +117,14 @@ var options = {
         Wypełnij panele aktualnymi ustawieniami, serialami, itp.
     */
     fillPanels: function() {
+        //checkboxy
         var checkboxs=document.querySelectorAll('input[data-n24h-checkbox]');
         for (var i=0;i<checkboxs.length;i++)
         {
             checkboxs[i].checked=options.getValue(checkboxs[i].getAttribute('data-n24h-checkbox'), false);
         }
-        var keywords=showsdb.getAll();
+        //seriale
+        var keywords=db.getAll(shows_db);
         var areashows=document.getElementById('n24h_opt_areashows');
         var showtext='';
         for (var i=0;i<keywords.length;i++)
@@ -129,11 +134,27 @@ var options = {
             showtext+=keywords[i];
         }
         areashows.value=showtext;
+        //pomijani autorzy
+        var authors=db.getAll(au_ignore_db);
+        var areaauthors=document.getElementById('n24h_opt_areaignore');
+        var authorstext='';
+        for (var i=0;i<authors.length;i++)
+        {
+            if (authorstext!='')
+                authorstext+='\n';
+            authorstext+=authors[i];
+        }
+        areaauthors.value=authorstext;
+        //debug
         var areadebug=document.getElementById('n24h_opt_areadebug');
         var debugtext='/**opcje**/\n';
         debugtext+=localStorage.getItem(options_db);
         debugtext+='\n\n/**seriale**/\n';
         debugtext+=localStorage.getItem(shows_db);
+        debugtext+='\n\n/**pomijani autorzy**/\n';
+        debugtext+=localStorage.getItem(au_ignore_db);
+        debugtext+='\n\n/**pomijane tłumaczenia**/\n';
+        debugtext+=localStorage.getItem(tr_ignore_db);
         areadebug.value=debugtext;
         var radios=document.querySelectorAll('input[data-n24h-radio]');
         for (var i=0;i<radios.length;i++)
@@ -163,6 +184,7 @@ var options = {
         var target = e.target || e.srcElement;
         options.setValue(target.getAttribute('data-n24h-checkbox'), target.checked);
         options.showHideCheckboxs();
+        options.showSaveInfo();
     },
     /**
         Obsługa kliknięcia radiobuttona
@@ -171,6 +193,7 @@ var options = {
         e = e || window.event;
         var target = e.target || e.srcElement;
         options.setValue(target.getAttribute('data-n24h-radio'), target.getAttribute('data-n24h-radio_id'));
+        options.showSaveInfo();
     },
     /**
         Obsługa kliknięcia przycisku sekcji
@@ -197,30 +220,86 @@ var options = {
     btnSaveClick: function() {
         var areashows=document.getElementById('n24h_opt_areashows');
         var shows = areashows.value.split('\n');
+        var title;
         localStorage.removeItem(shows_db);
         for (var i=0;i<shows.length;i++)
         {
-            console.log(shows[i]);
-            if (shows[i] != null && shows[i] != '' && !showsdb.exists(shows[i].trim()))
-                showsdb.add(shows[i].trim());
+            title=shows[i];
+            if (options.getValue('titleremoveyear', false))
+                title=title.trim().replace(/\(\d{4}\)/g, '');
+            if (options.getValue('titleremoveapostrophe', false))
+                title=title.trim().replace(/'|’|`/g, '');
+            title=title.trim();
+            console.log(title);
+            if (title != null && title != '' && !db.exists(shows_db, title))
+                db.add(shows_db, title);
         }
         options.fillPanels();
+        options.showSaveInfo();
+    },
+    btnAuthorsSaveClick: function() {
+        var areaauthors=document.getElementById('n24h_opt_areaignore');
+        var authors = areaauthors.value.split('\n');
+        var author;
+        localStorage.removeItem(au_ignore_db);
+        for (var i=0;i<authors.length;i++)
+        {
+            author=authors[i].trim();
+            console.log(author);
+            if (author != null && author != '' && !db.exists(au_ignore_db, author))
+                db.add(au_ignore_db, author);
+        }
+        options.fillPanels();
+        options.showSaveInfo();
     },
     /**
         Obsługa przycisku usuwania opcji 
     */
     btnKillOptClick: function() {
-        if (confirm('Czy napewno chcesz usunąć wszystkie ustawienia?\nNie będzie można tego cofnąć.'))
+        if (confirm('Czy na pewno chcesz usunąć wszystkie ustawienia?\nNie będzie można tego cofnąć.')) {
             localStorage.removeItem(options_db);
+            options.showSaveInfo();
+        }
         options.fillPanels();
     },
     /**
         Obsługa przycisku usuwania seriali
     */
     btnKillShowsClick: function() {
-        if (confirm('Czy napewno chcesz usunąć wszystkie ulubione filmy/seriale?\nNie będzie można tego cofnąć.'))
+        if (confirm('Czy na pewno chcesz usunąć wszystkie ulubione filmy/seriale?\nNie będzie można tego cofnąć.')) {
             localStorage.removeItem(shows_db);
+            options.showSaveInfo();
+        }
         options.fillPanels();
+    },
+    btnKillIgnAu: function() {
+        if (confirm('Czy na pewno chcesz usunąć wszystkich pomijanych autorów?\nNie będzie można tego cofnąć.')) {
+            localStorage.removeItem(au_ignore_db);
+            options.showSaveInfo();
+        }
+        options.fillPanels();
+    },
+    btnKillIgnTr: function() {
+        if (confirm('Czy na pewno chcesz usunąć wszystkie pomijane tłumaczenia?\nNie będzie można tego cofnąć.')) {
+            localStorage.removeItem(tr_ignore_db);
+            options.showSaveInfo();
+        }
+        options.fillPanels();
+    },
+    savetimeout: null,
+    showSaveInfo: function() {
+        var saveinfo=document.querySelector('#n24h_options_saved');
+        if (saveinfo)
+        {
+            clearTimeout(options.savetimeout);
+            saveinfo.style.display='block';
+            options.savetimeout=setTimeout(options.hideSaveInfo,1000);
+        }
+    },
+    hideSaveInfo: function() {
+        var saveinfo=document.querySelector('#n24h_options_saved');
+        if (saveinfo)
+            saveinfo.style.display='none';
     },
     init: function() {
         var css='#n24h_options_gear{'+
@@ -295,7 +374,6 @@ var options = {
                     'border-right: 1px solid #A0A0A0;'+
                     'display: table-cell;'+
                     'position: relative;'+
-                    
                     '}'+
                 '.n24h_options_panel_r{'+
                     'padding: 10px;'+
@@ -378,11 +456,13 @@ var options = {
                                         '<img src="'+icons.gear+'" style="margin-top: -5px;padding-right: 5px;">Opcje:<br/>'+
                                         '<span style="color:red;font-size:small;">Zmiana opcji wymaga przeładowania strony.</span>'+
                                         '<div class="n24h_options_close">X</div>'+
+                                        '<span id="n24h_options_saved" style="color:green;font-size:small;float:right;display:none;">Zapisane</span>'+
                                     '</div>'+
                                     '<div class="n24h_options_body">'+
                                         '<div class="n24h_options_panel_l">'+
                                             '<div class="n24h_options_panel_button n24h_options_panel_button_selected" data-n24h-optiontype="general">Ogólne</div>'+
                                             '<div class="n24h_options_panel_button" data-n24h-optiontype="shows">Seriale</div>'+
+                                            '<div class="n24h_options_panel_button" data-n24h-optiontype="ignore">Pomijane</div>'+
                                             '<div class="n24h_options_panel_button" data-n24h-optiontype="debug">Debug</div>'+
                                         '</div>'+
                                         '<div class="n24h_options_panel_r" data-n24h-optionpanel="general">'+
@@ -398,17 +478,28 @@ var options = {
                                                 '<label class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="2"> n24 classic</label>'+
                                             '<label><input type="checkbox" data-n24h-checkbox="usesmallmenubuttons"> Zmniejsz rozmiar przycisków menu</label>'+
                                             '<label><input type="checkbox" data-n24h-checkbox="removetargetblank"> Usuń target="_blank" ze wszystkich odnośników (nie otwieraj w nowej karcie)</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="addemptyrow"> Dodaj pusty wiersz po ostatnim ulubionym filmie/serialu</label>'+
                                         '</div>'+
                                         '<div style="display:none" class="n24h_options_panel_r" data-n24h-optionpanel="shows">'+
                                             '<span>Ulubione filmy/seriale (jeden film/serial na linię)</span>'+
-                                            '<textarea id="n24h_opt_areashows" class="n24h_opt_area" rows="10" ></textarea>'+
+                                            '<textarea id="n24h_opt_areashows" class="n24h_opt_area" rows="15" ></textarea>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="titleremoveyear"> Usuń rok (RRRR) z nazwy filmu/serialu</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="titleremoveapostrophe"> Usuń apostrofy ( \' ’ ` ) z nazwy filmu/serialu</label>'+
                                             '<button id="n24h_opt_btn_save" class="n24h_opt_button">Zapisz</button>'+
+                                        '</div>'+
+                                        '<div style="display:none" class="n24h_options_panel_r" data-n24h-optionpanel="ignore">'+
+                                            '<span>Tłumaczenia tych autorów są pomijane na liście ulubionych (jeden autor na linię)</span>'+
+                                            '<textarea id="n24h_opt_areaignore" class="n24h_opt_area" rows="15" ></textarea>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="autokillignoretranslations"> Automatycznie usuwaj pomijane tłumaczenia jeżeli nie ma ich w tabelce z tłumaczeniami</label>'+
+                                            '<button id="n24h_opt_btn_ignoresave" class="n24h_opt_button">Zapisz</button>'+
                                         '</div>'+
                                         '<div style="display:none" class="n24h_options_panel_r" data-n24h-optionpanel="debug">'+
                                             '<span>Informacje do debugowania</span>'+
                                             '<textarea id="n24h_opt_areadebug" rows="10" class="n24h_opt_area" readOnly></textarea>'+
                                             '<button id="n24h_opt_btn_killshows" class="n24h_opt_button">Usuń wszystkie ulubione filmy/seriale</button>'+
-                                            '<button id="n24h_opt_btn_killopt" class="n24h_opt_button">Usuń wszystkie ustawienia (bez filmów/seriali)</button>'+
+                                            '<button id="n24h_opt_btn_ignoreaukill" class="n24h_opt_button">Usuń wszystkich pomijanych autorów</button>'+
+                                            '<button id="n24h_opt_btn_ignorekill" class="n24h_opt_button">Usuń wszystkie pomijane tłumaczenia (bez autorów)</button>'+
+                                            '<button id="n24h_opt_btn_killopt" class="n24h_opt_button">Usuń wszystkie ustawienia (bez filmów/seriali i opcji pomijania)</button>'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>'+
@@ -433,43 +524,51 @@ var options = {
         //przycisk zapisz
         var opt_btn_save=document.getElementById('n24h_opt_btn_save');
         opt_btn_save.addEventListener('click', options.btnSaveClick, false);
+        var opt_btn_authorsave=document.getElementById('n24h_opt_btn_ignoresave');
+        opt_btn_authorsave.addEventListener('click', options.btnAuthorsSaveClick, false);
         //usuń opcje
         var opt_btn_killopt=document.getElementById('n24h_opt_btn_killopt');
         opt_btn_killopt.addEventListener('click', options.btnKillOptClick, false);
         //usuń seriale
         var opt_btn_killshows=document.getElementById('n24h_opt_btn_killshows');
         opt_btn_killshows.addEventListener('click', options.btnKillShowsClick, false);
+        //usuń pomijanych autorów
+        var opt_btn_killignau=document.getElementById('n24h_opt_btn_ignoreaukill');
+        opt_btn_killignau.addEventListener('click', options.btnKillIgnAu, false);
+        //usuń pomijane tłumaczenia
+        var opt_btn_killigntr=document.getElementById('n24h_opt_btn_ignorekill');
+        opt_btn_killigntr.addEventListener('click', options.btnKillIgnTr, false);
     }
 };
 
-var showsdb = {
+var db = {
     all: null,
     upper: null,
     /**
         Pobiera tablicę fraz-kluczy.
     */
-    getAll: function() {
-        var keywords = localStorage.getItem(shows_db);
+    getAll: function(db_name) {
+        var keywords = localStorage.getItem(db_name);
         this.all     = (keywords != null && keywords != '') ? JSON.parse(keywords) : [];
         return this.all;
     },
     /**
         Pobiera tablicę fraz-kluczy.
     */
-    exists: function(keyword) {
-        var keywords = localStorage.getItem(shows_db);
+    exists: function(db_name, keyword) {
+        var keywords = localStorage.getItem(db_name);
         this.upper   = (keywords != null && keywords != '') ? JSON.parse(keywords.toUpperCase()) : [];
         return this.upper.indexOf(keyword.toUpperCase()) < 0 ? false : true;
     },
     /**
         Dodaje keyword do tablicy fraz-kluczy.
     */
-    add: function(keyword) {
-        if (!this.exists(keyword))
+    add: function(db_name, keyword) {
+        if (!this.exists(db_name, keyword))
         {
-            this.getAll();
+            this.getAll(db_name);
             this.all = this.all.concat([keyword]);
-            localStorage.setItem(shows_db, JSON.stringify(this.all));
+            localStorage.setItem(db_name, JSON.stringify(this.all));
             return 1;
         }
         return 0;
@@ -477,12 +576,12 @@ var showsdb = {
     /**
         Usuwa keyword z tablicy fraz-kluczy.
     */
-    remove: function(keyword) {
-        if (this.exists(keyword))
+    remove: function(db_name, keyword) {
+        if (this.exists(db_name, keyword))
         {
-            this.getAll();
+            this.getAll(db_name);
             this.all.splice(this.upper.indexOf(keyword.toUpperCase()), 1);
-            localStorage.setItem(shows_db, JSON.stringify(this.all));
+            localStorage.setItem(db_name, JSON.stringify(this.all));
             return 1;
         }
         return 0;
@@ -500,9 +599,27 @@ var tlumaczenia = {
         var title=row.getAttribute('data-head');
         //oczyść tytuł ze wszystkich śmieci i numeru serii oraz odcinka/odcinków
         title=title.trim().replace(/\d+x\d+.*/, '');
+        //usuń rok
+        if (options.getValue('titleremoveyear', false))
+            title=title.trim().replace(/\(\d{4}\)/g, '');
+        //usuń apostrofy
+        if (options.getValue('titleremoveapostrophe', false))
+            title=title.trim().replace(/'|’|`/g, '');
         //usuń spacje na końcu która pozostała po wywaleniu numeru serii i odcina
         title=title.trim();
         return title;
+    },
+    /**
+        Pobierz autora napisów
+    */
+    getAuthor: function(row) {
+        return author=row.querySelector('a[href*="profile/userprofile/"]').textContent.trim();
+    },
+    /**
+        Pobierz ID tłumaczenia
+    */
+    getTID: function(row) {
+        return row.querySelector('input[data-tid]').getAttribute('data-tid').trim();
     },
     /**
         Zrób zebrę od nowa
@@ -541,6 +658,7 @@ var tlumaczenia = {
             Dla każdego wiersza w tabeli...
             Od końca do początku, żeby zachować kolejność sortowania
         */
+        tlumaczenia.RemoveEmptyRow();
         var rows=document.querySelectorAll('table#translationsTable > tbody > tr');
         for (var i=rows.length-1;i>=0;i--)
         {
@@ -549,15 +667,40 @@ var tlumaczenia = {
                 Wyciąga tytuł i oczyszcza go ze zbędnych znaków.
             */
             var title=tlumaczenia.getTitle(row);
-            if (showsdb.exists(title))
+            var star=row.querySelector('td[data-n24h-star]');
+            if (db.exists(shows_db, title))
             {
                 //Znaleziono dopasowanie.
-                tlumaczenia.moveTop(row);
+                if (db.exists(au_ignore_db, tlumaczenia.getAuthor(row))) {
+                    //autor jest na liście pomijanych nie przenosimy na górę
+                    star.setAttribute('data-n24h-star', 'auign');
+                } else if (db.exists(tr_ignore_db, tlumaczenia.getTID(row))) {
+                    //tłumaczenie jest na liście pomijanych nie przenosimy na górę
+                    star.setAttribute('data-n24h-star', 'trign');
+                } else {
+                    tlumaczenia.moveTop(row);
+                }
             } else {
                 //Nie ma dopasowania
                 //Wyczyść na wszelki wypadek gwiazdkę
-                var td=row.querySelector('td[data-n24h-star]');
-                td.setAttribute('data-n24h-star', 'off');
+                star.setAttribute('data-n24h-star', 'off');
+            }
+        }
+        if (options.getValue('addemptyrow', false)) {
+            var stars=document.querySelectorAll('table#translationsTable>tbody>tr>td[data-n24h-star="on"]');
+            if (stars.length > 0)
+            {
+                var table=document.querySelector('table#translationsTable > tbody');
+                var star=stars[stars.length-1];
+                if (star)
+                {
+                    var staroff=star.parentNode.nextSibling;
+                    var emptyrow=document.createElement('tr');
+                    emptyrow.setAttribute('id', 'n24h_emptyrow');
+                    emptyrow.setAttribute('class', 'hoverable');
+                    emptyrow.innerHTML='<td colspan="7"><div>&nbsp;</div></td>';
+                    table.insertBefore(emptyrow,staroff);
+                }
             }
         }
         tlumaczenia.restyleRows();
@@ -584,6 +727,7 @@ var tlumaczenia = {
         Sortowanie tabelki z tłumaczeniami
     */
     sortTable: function(col, reverse) {
+        tlumaczenia.RemoveEmptyRow();
         var table=document.querySelector('table#translationsTable');
         col = typeof col !== 'undefined' ? col : options.getValue('column', 4);
         reverse = typeof reverse !== 'undefined' ? reverse : options.getValue('reverse', 1);
@@ -627,22 +771,73 @@ var tlumaczenia = {
         var target = e.target || e.srcElement;
         var row=target.parentNode;
         var title=tlumaczenia.getTitle(row);
-        if (this.getAttribute('data-n24h-star')!='on')
-        {
+        if (this.getAttribute('data-n24h-star')==='on') {
+            //Przestań śledzić...
+            tlumaczenia.RemoveTitle(title);
+        } else if (this.getAttribute('data-n24h-star')==='off') {
             //Zacznij śledzić...
             var keyword = prompt('Podaj tytuł filmu lub serialu\nbez numeracji sezonu/odcinka:', tlumaczenia.getTitle(row));
             tlumaczenia.AddTitle(keyword);
-        } else {
-            //Przestań śledzić...
-            tlumaczenia.RemoveTitle(title);
         }
+    },
+    /**
+        Menu pomijania
+    */
+    IgnoreMenuHandler: function(e) {
+        if (this.getAttribute('data-n24h-star')!='off') {
+            e.preventDefault();
+            e = e || window.event;
+            var target = e.target || e.srcElement;
+            var row=target.parentNode;
+            var rmenubg=document.querySelector('div.n24h_menu_background');
+            rmenubg.setAttribute('style', 'display:block');
+            document.getElementById("n24h_rmenu").style.top =  e.clientY + 'px';
+            document.getElementById("n24h_rmenu").style.left = e.clientX + 'px';
+            var rmenu=document.querySelector('div#n24h_rmenu');
+            rmenu.setAttribute('data-n24h-ign-tid', tlumaczenia.getTID(row));
+            rmenu.setAttribute('data-n24h-ign-aut', tlumaczenia.getAuthor(row));
+    //        console.log('Autor: '+author+', TID: '+tid);
+            if (this.getAttribute('data-n24h-star')=='on') {
+                document.getElementById("n24h_start_auign").style.display = 'block';
+                document.getElementById("n24h_start_trign").style.display = 'block';
+                document.getElementById("n24h_stop_auign").style.display = 'none';
+                document.getElementById("n24h_stop_trign").style.display = 'none';
+            } else if(this.getAttribute('data-n24h-star')=='auign') {
+                document.getElementById("n24h_start_auign").style.display = 'none';
+                document.getElementById("n24h_start_trign").style.display = 'none';
+                document.getElementById("n24h_stop_auign").style.display = 'block';
+                document.getElementById("n24h_stop_trign").style.display = 'none';
+            } else if(this.getAttribute('data-n24h-star')=='trign') {
+                document.getElementById("n24h_start_auign").style.display = 'none';
+                document.getElementById("n24h_start_trign").style.display = 'none';
+                document.getElementById("n24h_stop_auign").style.display = 'none';
+                document.getElementById("n24h_stop_trign").style.display = 'block';
+            }
+        }
+    },
+    IgnoreMenuClick: function(e) {
+        e = e || window.event;
+        var target = e.target || e.srcElement;
+        var author=target.parentNode.parentNode.getAttribute('data-n24h-ign-aut');
+        var tid=target.parentNode.parentNode.getAttribute('data-n24h-ign-tid');
+        var event=target.getAttribute('id');
+        if (event=='n24h_start_auign')
+            db.add(au_ignore_db, author);
+        if (event=='n24h_start_trign')
+            db.add(tr_ignore_db, tid);
+        if (event=='n24h_stop_auign')
+            db.remove(au_ignore_db, author);
+        if (event=='n24h_stop_trign')
+            db.remove(tr_ignore_db, tid);
+        tlumaczenia.HideRMenu();
+        tlumaczenia.sortTable();
     },
     /**
         Szukanie filmu/serialu na liście tłumaczonych
     */
     DoSearch: function() {
         var keyword = document.querySelector('input#n24h_tr_input_search').value.trim().toUpperCase();
-        var rows=document.querySelectorAll('table#translationsTable > tbody > tr');
+        var rows=document.querySelectorAll('table#translationsTable > tbody > tr:not(#n24h_emptyrow)');
         for (var i=0;i<rows.length;i++)
         {
             var row=rows[i];
@@ -680,9 +875,8 @@ var tlumaczenia = {
         Dodaj film/serial do listy ulubionych
     */
     AddTitle: function(title) {
-        if (title != null && title != '' && !showsdb.exists(title))
-        {
-            if (showsdb.add(title))
+        if (title != null && title != '' && !db.exists(shows_db, title)) {
+            if (db.add(shows_db, title))
             {
                 document.querySelector('input#n24h_tr_input_new').value='';
                 var select=document.querySelector('select#n24h_tr_shows_list');
@@ -705,9 +899,9 @@ var tlumaczenia = {
         Usuń film/serial z listy ulubionych
     */
     RemoveTitle: function(title) {
-        if (showsdb.exists(title))
+        if (db.exists(shows_db, title))
         {
-            if (showsdb.remove(title))
+            if (db.remove(shows_db, title))
             {
                 var select=document.querySelector('select#n24h_tr_shows_list');
                 for (var i=0;i<select.length;i++)
@@ -829,7 +1023,7 @@ var tlumaczenia = {
         select.setAttribute('size', '1');
 
         //wypełnij selekta listą seriali/filmów
-        var keywords = showsdb.getAll();
+        var keywords = db.getAll(shows_db);
         for (var i=0;i<keywords.length;i++)
         {
             var option=document.createElement('option');
@@ -871,6 +1065,12 @@ var tlumaczenia = {
                     '}'+
                 'td[data-n24h-star="on"]{'+
                     'background-image: url('+icons.staron+');'+
+                    '}'+
+                'td[data-n24h-star="auign"]{'+
+                    'background-image: url('+icons.starign+');'+
+                    '}'+
+                'td[data-n24h-star="trign"]{'+
+                    'background-image: url('+icons.starign+');'+
                     '}';
         var trtable=document.querySelector('table#translationsTable');
         if (!trtable)
@@ -889,9 +1089,68 @@ var tlumaczenia = {
             var td=document.createElement('td');
             td.setAttribute('data-n24h-star', '');
             td.addEventListener('click', tlumaczenia.StarClickHandler, false);
+            td.addEventListener('contextmenu', tlumaczenia.IgnoreMenuHandler, false);
             trs[i].appendChild(td);
         }
 
+    },
+    HideRMenu: function() {
+        var rmenubg=document.querySelector('div.n24h_menu_background');
+        rmenubg.setAttribute('style', 'display:none');
+        var rmenu=document.querySelector('div#n24h_rmenu');
+        rmenubg.setAttribute('data-n24h-ign-tid', '');
+        rmenubg.setAttribute('data-n24h-ign-aut', '');
+    },
+    /**
+        Dodaj menu pomijania tłumaczeń
+    */
+    AddRMenu: function() {
+        var css='.n24h_menu_background{'+
+                    'position:fixed;'+
+                    'top:0;'+
+                    'left:0;'+
+                    'width:100%;'+
+                    'height:100%;'+
+                    'z-index:99999;'+
+                    '}'+
+                '.n24h_rmenu{'+
+                    'z-index:999999;'+
+                    'position: absolute;'+
+                    'background-color:#FFFFFF;'+
+                    'color:#222222;'+
+                    'box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);'+
+                    'border: 1px solid rgba(61, 70, 77, 0.1);'+
+                    'padding: 2px;'+
+                    'border-radius: 5px;'+
+                    'margin: 0;'+
+                    'list-style-type: none;'+
+                    'list-style: none;'+
+                    '}'+
+                '.n24h_rmenu li{'+
+                    'cursor: pointer;'+
+                    'list-style: none;'+
+                    'text-decoration: none;'+
+                    'padding-top: 5px;'+
+                    'padding-bottom: 5px;'+
+                    '}'+
+                '.n24h_rmenu li:hover{'+
+                    'background-color:#F0F0F0;'+
+                    '}';
+        utils.insertcss(css);
+        var rmenu = document.createElement('div');
+        rmenu.setAttribute('class', 'n24h_menu_background');
+        rmenu.setAttribute('style', 'display:none');
+        rmenu.innerHTML='<div id="n24h_rmenu" class="n24h_rmenu"><ul>'+
+                        '<li id="n24h_start_auign">Pomijaj tłumaczenia tego autrora</li>'+
+                        '<li id="n24h_start_trign">Pomijaj to tłumaczenie</li>'+
+                        '<li id="n24h_stop_auign">Przestań pomijać tłumaczenia tego autora</li>'+
+                        '<li id="n24h_stop_trign">Przestań pomijać to tłumaczenie</li>'+
+                        '</ul></div>';
+        rmenu.addEventListener('click', tlumaczenia.HideRMenu, false);
+        document.body.appendChild(rmenu);
+        var rmenus=rmenu.querySelectorAll('li');
+        for (var i = 0; i < rmenus.length; i++)
+            rmenus[i].addEventListener('click', tlumaczenia.IgnoreMenuClick, false);
     },
     /**
         Ustaw nagłówki tabelki tak żeby dało się ją sortować
@@ -966,12 +1225,38 @@ var tlumaczenia = {
             tds[i].parentNode.removeChild(tds[i]);
         }
     },
+    RemoveEmptyRow: function() {
+        //usuń pustą belkę jeżeli istnieje
+        var emptyrow=document.querySelector('#n24h_emptyrow');
+        if (emptyrow) {
+            var table=emptyrow.parentNode;
+            table.removeChild(emptyrow);
+        }
+    },
+    KillIgnoreTranslations: function() {
+        var tmp=[];
+        var ignoredb=db.getAll(tr_ignore_db);
+        if (ignoredb.length>0) {
+            var tid;
+            var selector;
+            for (var i=0;i<ignoredb.length;i++) {
+                selector='table#translationsTable input[data-tid="'+ignoredb[i]+'"]';
+                tid=document.querySelector(selector);
+                if (tid)
+                    tmp.push(ignoredb[i]);
+            }
+            localStorage.setItem(tr_ignore_db, JSON.stringify(tmp));
+        }
+    },
     init: function() {
         tlumaczenia.AddPanel();
         tlumaczenia.FixInfo();
         tlumaczenia.AddStars();
         tlumaczenia.AddNewHeader();
+        tlumaczenia.AddRMenu();
         tlumaczenia.sortTable();
+        if (options.getValue('autokillignoretranslations', false))
+            tlumaczenia.KillIgnoreTranslations();
     }
 };
 
@@ -1352,7 +1637,7 @@ var misc = {
                 'table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: #252525 !important;}'+ //ilość oczekujących
                 '.progress > span > span {color: #252525 !important;}'+ //procenty ukończenia
                 'table.table-layout tbody tr td{border-top: 1px solid #ffffff !important;border-left: 1px solid #ffffff !important;border-right: 1px solid #ffffff !important;border-bottom: 1px solid #bbbbbb !important;padding-top: 2px !important;padding-bottom: 2px !important;}'+
-                'table.table-layout tbody tr:not(.serialNapisy):hover td{border-top: solid 2px #E7BA63 !important;border-bottom: solid 2px #E7BA63 !important;border-left: solid 1px #E7BA63 !important;border-right: solid 1px #E7BA63 !important;padding-top: 1px !important;padding-bottom: 1px !important;}'+
+                'table.table-layout tbody tr:not(.serialNapisy):not(#n24h_emptyrow):hover td{border-top: solid 2px #E7BA63 !important;border-bottom: solid 2px #E7BA63 !important;border-left: solid 1px #E7BA63 !important;border-right: solid 1px #E7BA63 !important;padding-top: 1px !important;padding-bottom: 1px !important;}'+
                 'table.table-layout {border-collapse: initial !important;}'+
                 '.translation {cursor: pointer !important;}'+
                 'nav ul li.menu_add_tlum a{background-color: #2B68AB;border-bottom: 4px solid #2B68AB;background-position: 21px 12px;}'+
@@ -1399,6 +1684,10 @@ var misc = {
                 'table.table-layout tbody tr.even td[data-n24h-star]{background-image: url('+icons.staroff+'), linear-gradient(#E1E1E1, #ECECEC) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
                 'table.table-layout tbody tr.odd td[data-n24h-star="on"]{background-image: url('+icons.staron+'), linear-gradient(#FFFFFF, #DEE0E2) !important;}'+
                 'table.table-layout tbody tr.even td[data-n24h-star="on"]{background-image: url('+icons.staron+'), linear-gradient(#E1E1E1, #ECECEC) !important;}'+
+                'table.table-layout tbody tr.odd td[data-n24h-star="auign"]{background-image: url('+icons.starign+'), linear-gradient(#FFFFFF, #DEE0E2) !important;}'+
+                'table.table-layout tbody tr.even td[data-n24h-star="auign"]{background-image: url('+icons.starign+'), linear-gradient(#E1E1E1, #ECECEC) !important;}'+
+                'table.table-layout tbody tr.odd td[data-n24h-star="trign"]{background-image: url('+icons.starign+'), linear-gradient(#FFFFFF, #DEE0E2) !important;}'+
+                'table.table-layout tbody tr.even td[data-n24h-star="trign"]{background-image: url('+icons.starign+'), linear-gradient(#E1E1E1, #ECECEC) !important;}'+
                 'th#n24h_tr_favhead{background-image: url('+icons.staron+'), linear-gradient(#2369B0, #104694, #2167AF) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
                 '#n24h_tr_input_search, #n24h_tr_input_new{color: #000000 !important; border: 1px solid #CECFCF !important;}'+
                 '#n24h_tr_input_clear, #n24h_tr_input_add, #n24h_tr_input_remove {background-color: #F9F9F9 !important;color: #000000 !important; border: 1px solid #CECFCF !important;}'+
@@ -1426,8 +1715,7 @@ var misc = {
     /**
         Usuń target="_blank" ze wszystkich odnośników
     */
-    killTargetBlank: function()
-    {
+    killTargetBlank: function() {
         var targets=document.querySelectorAll('a[target="_blank"]');
         for (var i=0;i<targets.length;i++)
         {
