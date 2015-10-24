@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.4
+// @version         1.4.1
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -410,8 +410,8 @@ var options = {
                     'border-bottom: 3px solid #D26911;'+
                     '}'+
                 '.n24h_opt_area{'+
-                    'width: 100%;'+
-                    'height: auto;'+
+                    'width: 100% !important;'+
+                    'height: auto !important;'+
                     'cursor: auto !important;'+
                     'margin-bottom: 0px;'+
                     'background-color: #EEEEEE;'+
@@ -925,7 +925,7 @@ var tlumaczenia = {
         Dodaj panel na górze tabelki z tłumaczeniami
     */
     AddPanel: function() {
-        var css='#n24h_tr_input_search{'+ //wyszukiwanie
+        var css='#tlumaczenia #n24h_tr_input_search{'+ //wyszukiwanie
                     'margin-right: 5px;'+
                     'padding-left: 22px;'+
                     'border-radius: 4px;'+
@@ -936,7 +936,7 @@ var tlumaczenia = {
                     'background-position: 5px center;'+
                     'background-image: url('+icons.search+');'+
                     '}'+
-                '#n24h_tr_input_new{'+
+                '#tlumaczenia #n24h_tr_input_new{'+
                     'margin-right: 5px;'+
                     'padding-left: 27px;'+
                     'border-radius: 4px;'+
@@ -947,7 +947,7 @@ var tlumaczenia = {
                     'background-position: 5px center;'+
                     'background-image: url('+icons.staroff+');'+
                     '}'+
-                '#n24h_tr_input_clear,#n24h_tr_input_add,#n24h_tr_input_remove{'+
+                '#tlumaczenia #n24h_tr_input_clear,#tlumaczenia #n24h_tr_input_add,#tlumaczenia #n24h_tr_input_remove{'+
                     'border: 1px solid #32383E;'+
                     'background-color: #1B1F23;'+
                     'color: #7A878C;'+
@@ -956,10 +956,10 @@ var tlumaczenia = {
                     'width: 80px;'+
                     'height: 25px;'+
                     '}'+
-                '#n24h_tr_input_clear:hover,#n24h_tr_input_add:hover,#n24h_tr_input_remove:hover{'+
+                '#tlumaczenia #n24h_tr_input_clear:hover,#tlumaczenia #n24h_tr_input_add:hover,#tlumaczenia #n24h_tr_input_remove:hover{'+
                     'border-color:rgba(82, 168, 236, 0.8);outline:0;outline:thin dotted \9;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);'+
                     '}'+
-                '#n24h_tr_shows_list{'+
+                '#tlumaczenia #n24h_tr_shows_list{'+
                     'width: auto;'+
                     'margin-right: 5px;'+
                     'height: 25px;'+
@@ -970,7 +970,7 @@ var tlumaczenia = {
                     'color: #7A878C;'+
                     'max-width: 200px;'+
                     '}'+
-                '.n24h_tr_option{'+
+                '#tlumaczenia .n24h_tr_option{'+
                     'background-color: #1B1F23;'+
                     'color: #7A878C;'+
                     '}';
@@ -1217,7 +1217,7 @@ var tlumaczenia = {
         }
         /**INFO STOP*/
         //usuń kolumnę Info
-        var th=document.querySelector('th.header:nth-child(2)');
+        var th=document.querySelector('th:nth-child(2)');
         th.parentNode.removeChild(th);
         var tds=document.querySelectorAll('table#translationsTable>tbody>tr>td:nth-child(2)');
         for (var i = 0; i < tds.length; i++)
@@ -1508,13 +1508,15 @@ var misc = {
                 '.infoheader, .infoheader1{color: #000000 !important;}'+
                 '.row-fluid {border-bottom: none !important;}'+
                 /**tłumaczenia*/
+                '#tlumaczenia [class*="avatar-main-menu"] li a {color: #FFF;}'+
                 'table.table-layout thead tr th{background-color: #D5D5D5 !important;color: #272829 !important;border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;}'+
                 'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]){background-color: #C5C5C5 !important;}'+
                 'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]){background-color: #B5B5B5 !important;}'+
                 'table.table-layout tbody tr td{border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;color: #000000 !important;}'+
                 'table.table-layout{border-top: 1px solid #A0A0A0 !important;}'+
                 '.progress div{background-color: #A0A0A0 !important;}'+
-                'nav ul li.menu_add_tlum a{background-color: #2B68AB;border-bottom: 4px solid #2B68AB;background-position: 21px 12px;}'+
+                '#tlumaczenia .progress {background-color: #676767 !important; background-image:none;}'+
+                '#tlumaczenia nav ul li.menu_add_tlum a{background-color: #2B68AB;border-bottom: 4px solid #2B68AB;background-position: 21px 12px; color: #FFFFFF;}'+
                 'nav ul li.menu_add_tlum a:hover{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 44px;height: 42px;background-position: 21px 12px;}'+
                 'nav ul li.menu_add_tlum a:active{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 48px;height: 42px;background-position: 21px 12px;text-shadow:none;filter:none;border-top:none;}'+
                 'table.table-layout tbody tr td[style*="background-color:#255180"], td[style*="background-color:#41d64b"]{background-color:#DFDFDF !important;}'+ //ostatnio zaktualizowane
@@ -1524,6 +1526,7 @@ var misc = {
                 '.headerSortUp{background-image: url(run/images/arrs.png);background-repeat: no-repeat;background-position: right;}'+
                 '.headerSortDown{background-image: url(run/images/arrsh.png);background-repeat: no-repeat;background-position: right;}'+
                 '.progress > span > span {color: #FFFFFF !important;}'+ //procenty ukończenia
+                '#tlumaczenia table.table-layout tbody tr a {color: #1E519D;}'+
                 /**komentarze*/
                 '.moreInfo2{background-color:#D5D5D5 !important;color:#000000 !important;}'+
                 'section#content .tbl .avatar{border-right: 1px solid #A0A0A0 !important;}'+
@@ -1621,6 +1624,7 @@ var misc = {
                 'section#content .tbl div.mark:nth-child(3) {color: #545D62 !important;}'+
                 '.row-fluid {border-bottom: none !important;}'+
                 /**tłumaczenia*/
+                '#tlumaczenia [class*="avatar-main-menu"] li a {color: #FFF;}'+
                 '.checkbox_outer input[type="checkbox"] + span, .checkbox_series input[type="checkbox"] + span, input[type="checkbox"]:not([id="comments-form-subscribe"]) + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETc09F0PlAAAAGRJREFUOMtj/Pnz538GKoCr164xMDFQEQxZw+4wTJzDzsDensGwY0h7kxFb0rhz2IpB+8hZ7Do0NzL8DPCgfdJgxJ9o7zBMnKPNUPY6kWFj5QwGjyGbaBlH8ybJgOXqtWtUMwwAJg4sDO+yKkcAAAAASUVORK5CYII=) !important;}'+
                 '.checkbox_outer input[type="checkbox"] + span,.checkbox_series input[type="checkbox"] + span{width:19px;height:17px;}'+
                 '.checkbox_outer input[type="checkbox"]:checked + span, .checkbox_series input[type="checkbox"]:checked + span, input[type="checkbox"]:checked:not([id="comments-form-subscribe"]) + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETcCO+eaDQAAADxJREFUOMtj/Pnz538GKoCr164xMDFQEYwaNjIMuzORgZWdnYENhq0mMjDS02WMozlgGBnGcvXaNaoZBgBLTBH0qX8ljgAAAABJRU5ErkJggg==) !important;}'+
@@ -1640,11 +1644,12 @@ var misc = {
                 'table.table-layout tbody tr:not(.serialNapisy):not(#n24h_emptyrow):hover td{border-top: solid 2px #E7BA63 !important;border-bottom: solid 2px #E7BA63 !important;border-left: solid 1px #E7BA63 !important;border-right: solid 1px #E7BA63 !important;padding-top: 1px !important;padding-bottom: 1px !important;}'+
                 'table.table-layout {border-collapse: initial !important;}'+
                 '.translation {cursor: pointer !important;}'+
-                'nav ul li.menu_add_tlum a{background-color: #2B68AB;border-bottom: 4px solid #2B68AB;background-position: 21px 12px;}'+
+                '#tlumaczenia nav ul li.menu_add_tlum a{background-color: #2B68AB;border-bottom: 4px solid #2B68AB;background-position: 21px 12px; color: #FFFFFF;}'+
                 'nav ul li.menu_add_tlum a:hover{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 44px;height: 42px;background-position: 21px 12px;}'+
                 'nav ul li.menu_add_tlum a:active{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 48px;height: 42px;background-position: 21px 12px;text-shadow:none;filter:none;border-top:none;}'+
                 'table.table-layout thead tr th.headerSortUp{background-image: url(run/images/arrs.png) ,linear-gradient(#2369B0, #104694, #2167AF) !important; !important;background-repeat: no-repeat !important;background-position: right !important;}'+
                 'table.table-layout thead tr th.headerSortDown{background-image: url(run/images/arrsh.png) ,linear-gradient(#2369B0, #104694, #2167AF) !important; !important;background-repeat: no-repeat !important;background-position: right !important;}'+
+                '#tlumaczenia table.table-layout tbody tr a {color: #2B68AB;}'+
                 /**komentarze*/
                 '.moreInfo2{background-color:#DFE2E5 !important;color:#000000 !important;}'+
                 'section#content .clear ~ .tbl{background-color:#DFE2E5 !important;border-bottom: 1px solid #BBBBBB !important;margin-bottom:2px !important;}'+
