@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.4.1
+// @version         1.4.2
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -1635,7 +1635,7 @@ var misc = {
                 'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([data-n24h-star]){background: linear-gradient(#FFFFFF, #DEE0E2) !important;}'+//nie nadpisuj aktualizacji
                 'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([data-n24h-star]){background: linear-gradient(#E1E1E1, #ECECEC) !important;}'+
                 '.progress div{background-color: #E7BA63 !important;}'+
-                'td.progressx>div.progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}'+
+                '#tlumaczenia td.progressx>div.progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important;background-color: #DEE0E2 !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}'+
                 'table.table-layout tbody tr td{color: #252525 !important;}'+
                 'table.table-layout tbody tr td[style*="background-color:#255180"],td[style*="background-color:#41d64b"] {background-color: #E7BA63 !important;}'+ //ostatnio zaktualizowane
                 'table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: #252525 !important;}'+ //ilość oczekujących

@@ -1,6 +1,6 @@
 /**
 n24 classic
-wersja 1.4.1
+wersja 1.4.2
 */
 body{background-color:#DEE0E2 !important;color: #272727;}
 #avatar-body-middle-block{background-color:#DEE0E2;}
@@ -71,7 +71,7 @@ table.table-layout thead tr th{background: linear-gradient(#2369B0, #104694, #21
 table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]){background: linear-gradient(#FFFFFF, #DEE0E2) !important;}
 table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]){background: linear-gradient(#E1E1E1, #ECECEC) !important;}
 .progress div{background-color: #E7BA63 !important;}
-td.progressx>div.progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}
+#tlumaczenia td.progressx>div.progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important;background-color: #DEE0E2 !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}
 table.table-layout tbody tr td{color: #252525 !important;}
 table.table-layout tbody tr td[style*="background-color:#255180"],td[style*="background-color:#41d64b"] {background-color: #E7BA63 !important;}
 table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: #252525 !important;}
