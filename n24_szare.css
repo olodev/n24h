@@ -1,6 +1,6 @@
 /**
 n24 szare
-wersja 1.4.1
+wersja 1.4.3
 */
 .avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;border-bottom: 4px solid #1B4A7E;}
 [class*="avatar-main-menu"] > li:hover {border-bottom: 4px solid #1B4A7E;line-height: 18px;height: 18px;}
@@ -98,9 +98,10 @@ div[style*="background-color: #21262b"]{background-color: #ADADAD !important;}
 #uddeim-overview>table {border-collapse: initial !important;}
 #uddeim-writeform input {background-color: #D5D5D5 !important;}
 /**seriale*/
-span.yellowfont {color: #000000 !important;}
+#seriale span.yellowfont {color: #000000 !important;}
 /**serial*/
 section#content .tbl_top_powiadomienia {background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}
 section#content .tbl_top_powiadomienia .head_l {color: #414141 !important;}
 section#content .tbl_top_powiadomienia .head_r  label {color: #414141 !important;}
 .serialNapisy .infofootertab {color: #000000 !important; background-color: #DEE0E2 !important; border-top: 1px solid #BBBBBB !important;}
+#serial section#content span[style*="color:#2b68ab"] {color: transparent !important;}

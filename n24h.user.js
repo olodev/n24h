@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.4.2
+// @version         1.4.3
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -429,7 +429,7 @@ var options = {
                 '.n24h_options_panel_r > label > input{'+
                     'margin: 0px;'+
                     'margin-top: -4px;'+
-                    'display: inline;'+
+                    'display: inline !important;'+
                     '}'+
                 '.n24_option_level2{'+
                     'margin-left:30px;'+
@@ -927,7 +927,7 @@ var tlumaczenia = {
     AddPanel: function() {
         var css='#tlumaczenia #n24h_tr_input_search{'+ //wyszukiwanie
                     'margin-right: 5px;'+
-                    'padding-left: 22px;'+
+                    'padding: 0px 0px 0px 22px;'+
                     'border-radius: 4px;'+
                     'height: 25px;'+
                     'margin-bottom: 0px;'+
@@ -938,7 +938,7 @@ var tlumaczenia = {
                     '}'+
                 '#tlumaczenia #n24h_tr_input_new{'+
                     'margin-right: 5px;'+
-                    'padding-left: 27px;'+
+                    'padding: 0px 0px 0px 27px;'+
                     'border-radius: 4px;'+
                     'height: 25px;'+
                     'margin-bottom: 0px;'+
@@ -1552,12 +1552,13 @@ var misc = {
                 '#uddeim-overview>table {border-collapse: initial !important;}'+
                 '#uddeim-writeform input {background-color: #D5D5D5 !important;}'+
                 /**seriale*/
-                'span.yellowfont {color: #000000 !important;}'+
+                '#seriale span.yellowfont {color: #000000 !important;}'+
                 /**serial*/
                 'section#content .tbl_top_powiadomienia {background-color:#D5D5D5 !important;border-top: 1px solid #A0A0A0 !important;}'+
                 'section#content .tbl_top_powiadomienia .head_l {color: #414141 !important;}'+
                 'section#content .tbl_top_powiadomienia .head_r  label {color: #414141 !important;}'+
                 '.serialNapisy .infofootertab {color: #000000 !important; background-color: #DEE0E2 !important; border-top: 1px solid #BBBBBB !important;}'+
+                '#serial section#content span[style*="color:#2b68ab"] {color: transparent !important;}'+
                 /**n24 helper*/
                 '#n24h_tr_input_search, #n24h_tr_input_new{color: #000000 !important;}'+
                 '#n24h_tr_input_clear, #n24h_tr_input_add, #n24h_tr_input_remove {background-color: #C5C5C5 !important;color: #000000 !important;}'+
@@ -1635,7 +1636,7 @@ var misc = {
                 'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([data-n24h-star]){background: linear-gradient(#FFFFFF, #DEE0E2) !important;}'+//nie nadpisuj aktualizacji
                 'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([data-n24h-star]){background: linear-gradient(#E1E1E1, #ECECEC) !important;}'+
                 '.progress div{background-color: #E7BA63 !important;}'+
-                '#tlumaczenia td.progressx>div.progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important;background-color: #DEE0E2 !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}'+
+                '#tlumaczenia td.progressx>div.progress, #serial .progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important;background-color: #DEE0E2 !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}'+
                 'table.table-layout tbody tr td{color: #252525 !important;}'+
                 'table.table-layout tbody tr td[style*="background-color:#255180"],td[style*="background-color:#41d64b"] {background-color: #E7BA63 !important;}'+ //ostatnio zaktualizowane
                 'table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: #252525 !important;}'+ //ilość oczekujących
@@ -1677,13 +1678,15 @@ var misc = {
                 '#uddeim-overview>table {border-collapse: initial !important;}'+
                 '#uddeim-writeform input {background-color: #FFFFFF !important;}'+
                 /**seriale*/
-                'span.yellowfont {color: #000000 !important;}'+
+                '#seriale span.yellowfont {color: #000000 !important;}'+
                 /**serial*/
                 'section#content .tbl_top_powiadomienia {background: linear-gradient(#EDEEEE, #E2E3E3) !important;border-top: none !important;border-radius:5px;}'+
                 'section#content .tbl_top_powiadomienia .head_l {color: #414141 !important;}'+
                 'section#content .tbl_top_powiadomienia .head_r  label {color: #414141 !important;}'+
                 '.serialNapisy .moreInfo {background-color: #DEE0E2 !important;}'+
                 '.serialNapisy .infofootertab {color: #000000 !important; background-color: #DEE0E2 !important; border-top: 1px solid #BBBBBB !important;}'+
+                '#serial section#content .tbl_top_powiadomienia .head_r label[style*="background-image:none"] {background-image:none !important;}'+
+                '#serial section#content span[style*="color:#2b68ab"] {color: transparent !important;}'+
                 /**n24 helper*/
                 'table.table-layout tbody tr.odd td[data-n24h-star]{background-image: url('+icons.staroff+'), linear-gradient(#FFFFFF, #DEE0E2) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
                 'table.table-layout tbody tr.even td[data-n24h-star]{background-image: url('+icons.staroff+'), linear-gradient(#E1E1E1, #ECECEC) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
