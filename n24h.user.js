@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.4.3
+// @version         1.5
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -48,6 +48,13 @@ var utils = {
             style.appendChild(document.createTextNode(css));
         }
         document.head.appendChild(style);
+    },
+    getSkin: function() {
+        if (document.querySelector('ul.avatar-main-menu-szare'))
+            return 1;
+        if (document.querySelector('div.rt-social-buttons'))
+            return 2;
+        return 0;
     }
 };
 
@@ -304,8 +311,6 @@ var options = {
     init: function() {
         var css='#n24h_options_gear{'+
                     'cursor:pointer;'+
-                    'width:20px;'+
-                    'line-height: 26px;'+
                     '}'+
                 '.n24h_options_background{'+
                     'position:fixed;'+
@@ -425,6 +430,7 @@ var options = {
                     '}'+
                 '.n24h_options_panel_r > label{'+
                     'margin-bottom: 0px;'+
+                    'cursor:pointer;'+
                     '}'+
                 '.n24h_options_panel_r > label > input{'+
                     'margin: 0px;'+
@@ -434,20 +440,73 @@ var options = {
                 '.n24_option_level2{'+
                     'margin-left:30px;'+
                     '}';
-
-        var ul=document.querySelector('ul.avatar-main-menu-szare');
-        if (!ul)
+        var css1='#n24h_options_gear{'+
+                    'width:20px;'+
+                    'line-height: 26px;'+
+                    '}';
+        var css2='.n24h-gear-social {'+
+                    'transition-delay: 0s;'+
+                    'transition-duration: 0.2s;'+
+                    'transition-property: all;'+
+                    'transition-timing-function: ease-out;'+
+                    '}'+
+                 '.n24h-gear-social:hover {'+
+                    'background: #007E00;'+
+                    '}'+
+                 '.n24h-icon-gear {'+
+                    'display: inline;'+
+                    'min-width: 18px;'+
+                    'min-height: 18px;'+
+                    'background-image: url('+icons.gear+');'+
+                    'background-repeat: no-repeat;'+
+                    'background-position: center;'+
+                    'padding-left: 18px;'+
+                    '}'+
+                 '#n24h_options_gear .social-button-text {'+
+                    'margin-left: 5px;'+
+                    '}';
+        var skin_id=utils.getSkin();
+        if (!skin_id)
             return;
         utils.insertcss(css);
-        var li=document.createElement('li');    //panel z opcjami
-        li.setAttribute('id', 'n24h_options_gear');
-        li.setAttribute('title', 'napisy24.pl helper opcje');
-        li.addEventListener('click', options.show, false);
-        var img=document.createElement('img');
-        img.setAttribute('src', icons.gear);
-        img.setAttribute('style', 'margin-top: -5px;');
-        li.appendChild(img);
-        ul.appendChild(li);
+        switch (skin_id) {
+            case 1:
+                var ul=document.querySelector('ul.avatar-main-menu-szare');
+                if (!ul)
+                    return;
+                utils.insertcss(css1);
+                var li=document.createElement('li');    //panel z opcjami
+                li.setAttribute('id', 'n24h_options_gear');
+                li.setAttribute('title', 'napisy24.pl helper opcje');
+                li.addEventListener('click', options.show, false);
+                var img=document.createElement('img');
+                img.setAttribute('src', icons.gear);
+                img.setAttribute('style', 'margin-top: -5px;');
+                li.appendChild(img);
+                ul.appendChild(li);
+                break;
+            case 2:
+                var div=document.querySelector('div.rt-social-buttons');
+                if (!div)
+                    return;
+                utils.insertcss(css2);
+                var li=document.createElement('div');    //panel z opcjami
+                li.setAttribute('id', 'n24h_options_gear');
+                li.setAttribute('class', 'social-button n24h-gear-social');
+                li.addEventListener('click', options.show, false);
+                var span1=document.createElement('span');
+                span1.setAttribute('class', 'n24h-icon-gear');
+                li.appendChild(span1);
+                var span2=document.createElement('span');
+                span2.setAttribute('class', 'social-button-text');
+                span2.appendChild(document.createTextNode('n24h opcje'));
+                li.appendChild(span2);
+                var clear=div.querySelector('div.clear');
+                div.insertBefore(li, clear);
+                break;
+            default:
+                console.log('Błędny skin "utils.getSkin()": '+skin_id);
+        }
         var panel = document.createElement('div');
         panel.innerHTML='<div class="n24h_options_background" style="display:none">'+
                             '<div class="n24h_options_dialog">'+
@@ -473,12 +532,15 @@ var options = {
                                             '<label><input type="checkbox" data-n24h-checkbox="fixcomments"> W komentarzach propozycję poprawek wyświetlaj czcionką o stałej szerokości</label>'+
                                             '<label><input type="checkbox" data-n24h-checkbox="shown24info"> Na stronie z tłumaczeniami pokaż info N24/IMDB</label>'+
                                                 '<label class="n24_option_level2" style="display:none"><input type="checkbox" data-n24h-checkbox="useimdbinfo"> Zastąp info N24 linkiem do IMDB</label>'+
-                                            '<label><input type="checkbox" data-n24h-checkbox="usealtskin"> Używaj alternatywnej skórki</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="usealtskin"> Używaj alternatywnej skórki <div style="color:blue;font-size:small;display: inline;">najlepiej działa z domyślnym <i>(ciemnym)</i> stylem strony</div></label>'+
                                                 '<label class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="1"> szara</label>'+
                                                 '<label class="n24_option_level2" style="display:none"><input type="radio" name="n24h_altskinid" data-n24h-radio="altskinid" data-n24h-radio_id="2"> n24 classic</label>'+
                                             '<label><input type="checkbox" data-n24h-checkbox="usesmallmenubuttons"> Zmniejsz rozmiar przycisków menu</label>'+
                                             '<label><input type="checkbox" data-n24h-checkbox="removetargetblank"> Usuń target="_blank" ze wszystkich odnośników (nie otwieraj w nowej karcie)</label>'+
                                             '<label><input type="checkbox" data-n24h-checkbox="addemptyrow"> Dodaj pusty wiersz po ostatnim ulubionym filmie/serialu</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="turnofffavpanel"> Wyłącz panel ulubionych</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="turnoffallfav"> Wyłącz wszystkie opcje ulubionych filmów/seriali</label>'+
+                                            '<label><input type="checkbox" data-n24h-checkbox="removeconnectbuttons"> Usuń przyciski "Dołącz..."</label>'+
                                         '</div>'+
                                         '<div style="display:none" class="n24h_options_panel_r" data-n24h-optionpanel="shows">'+
                                             '<span>Ulubione filmy/seriale (jeden film/serial na linię)</span>'+
@@ -488,7 +550,7 @@ var options = {
                                             '<button id="n24h_opt_btn_save" class="n24h_opt_button">Zapisz</button>'+
                                         '</div>'+
                                         '<div style="display:none" class="n24h_options_panel_r" data-n24h-optionpanel="ignore">'+
-                                            '<span>Tłumaczenia tych autorów są pomijane na liście ulubionych (jeden autor na linię)</span>'+
+                                            '<span>Tłumaczenia tych autorów są pomijane na liście ulubionych (jeden autor/autor(tytuł) na linię)</span>'+
                                             '<textarea id="n24h_opt_areaignore" class="n24h_opt_area" rows="15" ></textarea>'+
                                             '<label><input type="checkbox" data-n24h-checkbox="autokillignoretranslations"> Automatycznie usuwaj pomijane tłumaczenia jeżeli nie ma ich w tabelce z tłumaczeniami</label>'+
                                             '<button id="n24h_opt_btn_ignoresave" class="n24h_opt_button">Zapisz</button>'+
@@ -674,6 +736,9 @@ var tlumaczenia = {
                 if (db.exists(au_ignore_db, tlumaczenia.getAuthor(row))) {
                     //autor jest na liście pomijanych nie przenosimy na górę
                     star.setAttribute('data-n24h-star', 'auign');
+                } else if (db.exists(au_ignore_db, tlumaczenia.getAuthor(row)+'('+tlumaczenia.getTitle(row)+')')) {
+                    //tłumaczenie jest na liście pomijanych nie przenosimy na górę
+                    star.setAttribute('data-n24h-star', 'autit');
                 } else if (db.exists(tr_ignore_db, tlumaczenia.getTID(row))) {
                     //tłumaczenie jest na liście pomijanych nie przenosimy na górę
                     star.setAttribute('data-n24h-star', 'trign');
@@ -761,7 +826,10 @@ var tlumaczenia = {
         //ustaw nagłówek
         tlumaczenia.SetColumnHeader(col, reverse);
         //przesuń ulubione na samą górę
-        tlumaczenia.FavoriteOnTop();
+        if (!options.getValue('turnoffallfav', false))
+            tlumaczenia.FavoriteOnTop();
+        else
+            tlumaczenia.restyleRows();
     },
     /**
         Obsługa kliknięcia w gwiazdkę
@@ -791,28 +859,45 @@ var tlumaczenia = {
             var row=target.parentNode;
             var rmenubg=document.querySelector('div.n24h_menu_background');
             rmenubg.setAttribute('style', 'display:block');
-            document.getElementById("n24h_rmenu").style.top =  e.clientY + 'px';
-            document.getElementById("n24h_rmenu").style.left = e.clientX + 'px';
             var rmenu=document.querySelector('div#n24h_rmenu');
             rmenu.setAttribute('data-n24h-ign-tid', tlumaczenia.getTID(row));
             rmenu.setAttribute('data-n24h-ign-aut', tlumaczenia.getAuthor(row));
-    //        console.log('Autor: '+author+', TID: '+tid);
+            rmenu.setAttribute('data-n24h-ign-ati', tlumaczenia.getAuthor(row)+'('+tlumaczenia.getTitle(row)+')');
             if (this.getAttribute('data-n24h-star')=='on') {
                 document.getElementById("n24h_start_auign").style.display = 'block';
+                document.getElementById("n24h_start_atign").style.display = 'block';
                 document.getElementById("n24h_start_trign").style.display = 'block';
                 document.getElementById("n24h_stop_auign").style.display = 'none';
+                document.getElementById("n24h_stop_atign").style.display = 'none';
                 document.getElementById("n24h_stop_trign").style.display = 'none';
             } else if(this.getAttribute('data-n24h-star')=='auign') {
                 document.getElementById("n24h_start_auign").style.display = 'none';
+                document.getElementById("n24h_start_atign").style.display = 'none';
                 document.getElementById("n24h_start_trign").style.display = 'none';
                 document.getElementById("n24h_stop_auign").style.display = 'block';
+                document.getElementById("n24h_stop_atign").style.display = 'none';
+                document.getElementById("n24h_stop_trign").style.display = 'none';
+            } else if(this.getAttribute('data-n24h-star')=='autit') {
+                document.getElementById("n24h_start_auign").style.display = 'none';
+                document.getElementById("n24h_start_atign").style.display = 'none';
+                document.getElementById("n24h_start_trign").style.display = 'none';
+                document.getElementById("n24h_stop_auign").style.display = 'none';
+                document.getElementById("n24h_stop_atign").style.display = 'block';
                 document.getElementById("n24h_stop_trign").style.display = 'none';
             } else if(this.getAttribute('data-n24h-star')=='trign') {
                 document.getElementById("n24h_start_auign").style.display = 'none';
+                document.getElementById("n24h_start_atign").style.display = 'none';
                 document.getElementById("n24h_start_trign").style.display = 'none';
                 document.getElementById("n24h_stop_auign").style.display = 'none';
+                document.getElementById("n24h_stop_atign").style.display = 'none';
                 document.getElementById("n24h_stop_trign").style.display = 'block';
             }
+            rmenu.style.top = e.clientY + 'px';
+            //sprawdź czy zmieścimy się po prawej stronie
+            if (window.innerWidth>e.clientX+rmenu.offsetWidth+20)
+                rmenu.style.left = (e.clientX + 20) + 'px';
+            else //niestety nie, narysuj menu w lewo
+                rmenu.style.left = (e.clientX - rmenu.offsetWidth) + 'px';
         }
     },
     IgnoreMenuClick: function(e) {
@@ -820,13 +905,18 @@ var tlumaczenia = {
         var target = e.target || e.srcElement;
         var author=target.parentNode.parentNode.getAttribute('data-n24h-ign-aut');
         var tid=target.parentNode.parentNode.getAttribute('data-n24h-ign-tid');
+        var autitle=target.parentNode.parentNode.getAttribute('data-n24h-ign-ati');
         var event=target.getAttribute('id');
         if (event=='n24h_start_auign')
             db.add(au_ignore_db, author);
+        if (event=='n24h_start_atign')
+            db.add(au_ignore_db, autitle);
         if (event=='n24h_start_trign')
             db.add(tr_ignore_db, tid);
         if (event=='n24h_stop_auign')
             db.remove(au_ignore_db, author);
+        if (event=='n24h_stop_atign')
+            db.remove(au_ignore_db, autitle);
         if (event=='n24h_stop_trign')
             db.remove(tr_ignore_db, tid);
         tlumaczenia.HideRMenu();
@@ -949,8 +1039,6 @@ var tlumaczenia = {
                     '}'+
                 '#tlumaczenia #n24h_tr_input_clear,#tlumaczenia #n24h_tr_input_add,#tlumaczenia #n24h_tr_input_remove{'+
                     'border: 1px solid #32383E;'+
-                    'background-color: #1B1F23;'+
-                    'color: #7A878C;'+
                     'border-radius: 4px;'+
                     'cursor: pointer;'+
                     'width: 80px;'+
@@ -969,15 +1057,40 @@ var tlumaczenia = {
                     'background-color: #1B1F23;'+
                     'color: #7A878C;'+
                     'max-width: 200px;'+
+                    '}'
+        var css1='#tlumaczenia #n24h_tr_input_clear,#tlumaczenia #n24h_tr_input_add,#tlumaczenia #n24h_tr_input_remove{'+
+                    'background-color: #1B1F23;'+
+                    'color: #7A878C;'+
                     '}'+
                 '#tlumaczenia .n24h_tr_option{'+
                     'background-color: #1B1F23;'+
                     'color: #7A878C;'+
                     '}';
+        var css2='#tlumaczenia #n24h_tr_input_clear,#tlumaczenia #n24h_tr_input_add,#tlumaczenia #n24h_tr_input_remove{'+
+                    'background-color: #F8F8F8;'+
+                    'color: #2e2e2e;'+
+                    '}'+
+                '#tlumaczenia .n24h_tr_option{'+
+                    'background-color: #efefef;'+
+                    'color: #585858;'+
+                    '}';
+
         var trtable=document.querySelector('table#translationsTable');
         if (!trtable)
             return;
         utils.insertcss(css);
+        var skin_id=utils.getSkin();
+        switch (skin_id) {
+            case 1:
+                utils.insertcss(css1);
+                break;
+            case 2:
+                utils.insertcss(css2);
+                break;
+            default:
+                console.log('Błędny skin "utils.getSkin()": '+skin_id);
+        }
+
         var panel=document.createElement('div');    //panel z opcjami
         panel.setAttribute('id', 'n24h_tr_panel');
         panel.setAttribute('class', 'tbl_top');
@@ -1066,10 +1179,7 @@ var tlumaczenia = {
                 'td[data-n24h-star="on"]{'+
                     'background-image: url('+icons.staron+');'+
                     '}'+
-                'td[data-n24h-star="auign"]{'+
-                    'background-image: url('+icons.starign+');'+
-                    '}'+
-                'td[data-n24h-star="trign"]{'+
+                'td[data-n24h-star="auign"], td[data-n24h-star="trign"], td[data-n24h-star="autit"]{'+
                     'background-image: url('+icons.starign+');'+
                     '}';
         var trtable=document.querySelector('table#translationsTable');
@@ -1080,7 +1190,7 @@ var tlumaczenia = {
         var th=document.createElement('th');
         th.setAttribute('id', 'n24h_tr_favhead');
         th.setAttribute('class', 'nosort header');
-        th.setAttribute('style', 'background-image: url('+icons.staron+');background-repeat: no-repeat;background-position: center;');
+        th.setAttribute('style', 'background-image: url('+icons.staron+');background-repeat: no-repeat;background-position: center;width:10px;');
         th.setAttribute('title', 'Ulubione filmy/seriale');
         trhead.appendChild(th);
         var trs=trtable.querySelectorAll('tbody>tr');
@@ -1100,6 +1210,7 @@ var tlumaczenia = {
         var rmenu=document.querySelector('div#n24h_rmenu');
         rmenubg.setAttribute('data-n24h-ign-tid', '');
         rmenubg.setAttribute('data-n24h-ign-aut', '');
+        rmenubg.setAttribute('data-n24h-ign-ati', '');
     },
     /**
         Dodaj menu pomijania tłumaczeń
@@ -1126,6 +1237,9 @@ var tlumaczenia = {
                     'list-style-type: none;'+
                     'list-style: none;'+
                     '}'+
+                '.n24h_rmenu ul{'+
+                    'margin: 0;'+
+                    '}'+
                 '.n24h_rmenu li{'+
                     'cursor: pointer;'+
                     'list-style: none;'+
@@ -1141,10 +1255,12 @@ var tlumaczenia = {
         rmenu.setAttribute('class', 'n24h_menu_background');
         rmenu.setAttribute('style', 'display:none');
         rmenu.innerHTML='<div id="n24h_rmenu" class="n24h_rmenu"><ul>'+
-                        '<li id="n24h_start_auign">Pomijaj tłumaczenia tego autrora</li>'+
-                        '<li id="n24h_start_trign">Pomijaj to tłumaczenie</li>'+
-                        '<li id="n24h_stop_auign">Przestań pomijać tłumaczenia tego autora</li>'+
-                        '<li id="n24h_stop_trign">Przestań pomijać to tłumaczenie</li>'+
+                        '<li id="n24h_start_auign">Pomijaj&nbsp;tłumaczenia&nbsp;tego&nbsp;autora&nbsp;(wszystkie&nbsp;tytuły)</li>'+
+                        '<li id="n24h_start_atign">Pomijaj&nbsp;tłumaczenia&nbsp;tego&nbsp;autora&nbsp;(tylko&nbsp;ten&nbsp;tytuł)</li>'+
+                        '<li id="n24h_start_trign">Pomijaj&nbsp;to&nbsp;tłumaczenie</li>'+
+                        '<li id="n24h_stop_auign">Przestań&nbsp;pomijać&nbsp;tłumaczenia&nbsp;tego&nbsp;autora&nbsp;(wszystkie&nbsp;tytuły)</li>'+
+                        '<li id="n24h_stop_atign">Przestań&nbsp;pomijać&nbsp;tłumaczenia&nbsp;tego&nbsp;autora&nbsp;(tylko&nbsp;ten&nbsp;tytuł)</li>'+
+                        '<li id="n24h_stop_trign">Przestań&nbsp;pomijać&nbsp;to&nbsp;tłumaczenie</li>'+
                         '</ul></div>';
         rmenu.addEventListener('click', tlumaczenia.HideRMenu, false);
         document.body.appendChild(rmenu);
@@ -1164,11 +1280,11 @@ var tlumaczenia = {
         if (th) i = th.length;
         else return;
         while (--i >= 0)
-        if (i<6) //pomiń kolumnę ulubione
-            (function (i) {
-                var dir = 1;
-                th[i].addEventListener('click', function () {tlumaczenia.sortTable(i, (dir = 1 - dir))});
-            }(i));
+            if (i<6) //pomiń kolumnę ulubione
+                (function (i) {
+                    var dir = 1;
+                    th[i].addEventListener('click', function () {tlumaczenia.sortTable(i, (dir = 1 - dir))});
+                }(i));
     },
     /**
         Skopiuj nagłówki tabelki, żeby wywalić oryginalną obsługę sortowania i dodać naszą
@@ -1249,11 +1365,14 @@ var tlumaczenia = {
         }
     },
     init: function() {
-        tlumaczenia.AddPanel();
+        if (!(options.getValue('turnofffavpanel', false)||options.getValue('turnoffallfav', false)))
+            tlumaczenia.AddPanel();
         tlumaczenia.FixInfo();
-        tlumaczenia.AddStars();
+        if (!options.getValue('turnoffallfav', false))
+            tlumaczenia.AddStars();
         tlumaczenia.AddNewHeader();
-        tlumaczenia.AddRMenu();
+        if (!options.getValue('turnoffallfav', false))
+            tlumaczenia.AddRMenu();
         tlumaczenia.sortTable();
         if (options.getValue('autokillignoretranslations', false))
             tlumaczenia.KillIgnoreTranslations();
@@ -1376,7 +1495,7 @@ var serial = {
         link.setAttribute('href', href);
         link.setAttribute('target', '_blank');
         link.innerHTML='IMDB';
-        info.appendChild(document.createTextNode(' ')); //dodaj spację
+        info.appendChild(document.createTextNode(' / ')); //dodaj spację
         info.appendChild(link);
     },
     setObserver: function() {
@@ -1394,7 +1513,6 @@ var serial = {
             serial.setObserver();
     }
 };
-
 
 /**
     Różności
@@ -1459,6 +1577,8 @@ var misc = {
         var altcss1='.avatar-menu-icons[class*="avatar-main-menu-szare"] > li {background-color: #2B68AB;border-right: 1px solid #5592D5;border-bottom: 4px solid #1B4A7E;}'+//menu: forum, irc, rss
                 '[class*="avatar-main-menu"] > li:hover {border-bottom: 4px solid #1B4A7E;line-height: 18px;height: 18px;}'+
                 '[class*="avatar-main-menu"] > li:hover > a {top:0px;}'+
+                '#oczekiwane .main_menu li a, #profile .main_menu li a, #szukaj .main_menu li a, #tlumaczenia .main_menu li a {color: #FFFFFF;}'+
+                '#oczekiwane .main_menu li a:hover, #profile .main_menu li a:hover, #szukaj .main_menu li a:hover, #tlumaczenia .main_menu li a:hover {color: #cccccc;}'+
                 'nav{background-color: #2B68AB !important;}'+//pusta przestrzeń między menu a dodaj napisy
                 'nav ul li.menu_add_napisy a{background-color: #2B68AB;border-bottom: 4px solid #1B4A7E;}'+//przycisk dodaj napisy
                 'nav ul li.menu_add_napisy a:hover{background-color: #1B4A7E;color: #CCC;background-position: 21px 12px;}'+
@@ -1510,16 +1630,16 @@ var misc = {
                 /**tłumaczenia*/
                 '#tlumaczenia [class*="avatar-main-menu"] li a {color: #FFF;}'+
                 'table.table-layout thead tr th{background-color: #D5D5D5 !important;color: #272829 !important;border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;}'+
-                'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]){background-color: #C5C5C5 !important;}'+
-                'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]){background-color: #B5B5B5 !important;}'+
+                'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([style*="background-color:#3399ff"]){background-color: #C5C5C5 !important;}'+
+                'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([style*="background-color:#3399ff"]){background-color: #B5B5B5 !important;}'+
                 'table.table-layout tbody tr td{border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;color: #000000 !important;}'+
-                'table.table-layout{border-top: 1px solid #A0A0A0 !important;}'+
+                'table.table-layout {border: 1px solid #A0A0A0 !important;}'+
                 '.progress div{background-color: #A0A0A0 !important;}'+
                 '#tlumaczenia .progress {background-color: #676767 !important; background-image:none;}'+
                 '#tlumaczenia nav ul li.menu_add_tlum a{background-color: #2B68AB;border-bottom: 4px solid #2B68AB;background-position: 21px 12px; color: #FFFFFF;}'+
                 'nav ul li.menu_add_tlum a:hover{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 44px;height: 42px;background-position: 21px 12px;}'+
                 'nav ul li.menu_add_tlum a:active{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 48px;height: 42px;background-position: 21px 12px;text-shadow:none;filter:none;border-top:none;}'+
-                'table.table-layout tbody tr td[style*="background-color:#255180"], td[style*="background-color:#41d64b"]{background-color:#DFDFDF !important;}'+ //ostatnio zaktualizowane
+                'table.table-layout tbody tr td[style*="background-color:#255180"], td[style*="background-color:#41d64b"], td[style*="background-color:#3399ff"]{background-color:#DFDFDF !important;}'+ //ostatnio zaktualizowane
                 'table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: black !important;}'+ //ilość oczekujących
                 'table.table-layout tbody tr td div a[style*="color: rgb(0,200,0)"]{color: rgb(0,150,0) !important;}'+ //moderator
                 '.translation {cursor: pointer !important;}'+
@@ -1530,11 +1650,12 @@ var misc = {
                 /**komentarze*/
                 '.moreInfo2{background-color:#D5D5D5 !important;color:#000000 !important;}'+
                 'section#content .tbl .avatar{border-right: 1px solid #A0A0A0 !important;}'+
-                'section#content .tbl .subtitle .sub h3{color: #000000 !important;}'+
-                'section#content .tbl .mark{color: #000000 !important;}'+
+                '#komentarze section#content .tbl .subtitle .sub h3{color: #000000;}'+
+                '#komentarze section#content .tbl .mark{color: #000000;}'+
                 'textarea{background-color: #B5B5B5 !important;color: #272829 !important;}'+
-                'div[style*="background-color: #21262b"]{background-color: #ADADAD !important;}'+ //górna belka z datą i oceną
+                '#komentowane-header{background-color: #ADADAD !important;}'+ //górna belka z datą i oceną
                 '.tresc2 div[style*="background-color: #292f35"]{background-color: #E9E9E9 !important;}'+ //cytat
+                '#komentarze .sortComments{color: #000000;}'+
                 /**artykuły*/
                 '#jc{background: none repeat scroll 0px 0px #B5B5B5;}'+
                 '#jc h4{color: #272829;background-color: #C5C5C5;}'+
@@ -1558,7 +1679,7 @@ var misc = {
                 'section#content .tbl_top_powiadomienia .head_l {color: #414141 !important;}'+
                 'section#content .tbl_top_powiadomienia .head_r  label {color: #414141 !important;}'+
                 '.serialNapisy .infofootertab {color: #000000 !important; background-color: #DEE0E2 !important; border-top: 1px solid #BBBBBB !important;}'+
-                '#serial section#content span[style*="color:#2b68ab"] {color: transparent !important;}'+
+                '#serial section#content span[style*="color:#5d93d3"] {color: transparent !important;}'+
                 /**n24 helper*/
                 '#n24h_tr_input_search, #n24h_tr_input_new{color: #000000 !important;}'+
                 '#n24h_tr_input_clear, #n24h_tr_input_add, #n24h_tr_input_remove {background-color: #C5C5C5 !important;color: #000000 !important;}'+
@@ -1571,6 +1692,8 @@ var misc = {
                 '#avatar-body-middle-block{background-color:#DEE0E2;}'+//środek
                 '#avatar-header-inside-block{background-color:#DEE0E2;}'+//górna belka body
                 '#avatar-tool-block{background-color:#DEE0E2;}'+
+                '#oczekiwane .main_menu li a, #profile .main_menu li a, #szukaj .main_menu li a, #tlumaczenia .main_menu li a {color: #FFFFFF;}'+
+                '#oczekiwane .main_menu li a:hover, #profile .main_menu li a:hover, #szukaj .main_menu li a:hover, #tlumaczenia .main_menu li a:hover {color: #cccccc;}'+
                 '.logo .screen{border: 4px solid #5592D5 !important;}'+//logo
                 '.logo .screen .subline1{background-color: #5592D5 !important;}'+
                 '.logo .screen .subline2{background-color: #5592D5 !important;}'+
@@ -1631,14 +1754,14 @@ var misc = {
                 '.checkbox_outer input[type="checkbox"]:checked + span, .checkbox_series input[type="checkbox"]:checked + span, input[type="checkbox"]:checked:not([id="comments-form-subscribe"]) + label{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAYAAAA/mJfHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wEMETcCO+eaDQAAADxJREFUOMtj/Pnz538GKoCr164xMDFQEYwaNjIMuzORgZWdnYENhq0mMjDS02WMozlgGBnGcvXaNaoZBgBLTBH0qX8ljgAAAABJRU5ErkJggg==) !important;}'+
                 '.checkbox_outer input[type="checkbox"]:hover + span, .checkbox_series input[type="checkbox"]:hover + span{border-bottom: 1px solid #FCB622;border-right: 1px solid #FCB622;border-radius: 5px;}'+
                 '.checkbox_outer{margin-top: 0px !important;top: 4px !important;}'+
-                'table.table-layout{border-top: none !important;}'+
+                'table.table-layout {border: none !important;}'+
                 'table.table-layout thead tr th{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;border: solid 1px white !important;line-height: inherit !important;}'+ //nagłówek tabelki
-                'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([data-n24h-star]){background: linear-gradient(#FFFFFF, #DEE0E2) !important;}'+//nie nadpisuj aktualizacji
-                'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([data-n24h-star]){background: linear-gradient(#E1E1E1, #ECECEC) !important;}'+
+                'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([style*="background-color:#3399ff"]):not([data-n24h-star]){background: linear-gradient(#FFFFFF, #DEE0E2) !important;}'+//nie nadpisuj aktualizacji
+                'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([style*="background-color:#3399ff"]):not([data-n24h-star]){background: linear-gradient(#E1E1E1, #ECECEC) !important;}'+
                 '.progress div{background-color: #E7BA63 !important;}'+
-                '#tlumaczenia td.progressx>div.progress, #serial .progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important;background-color: #DEE0E2 !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}'+
+                '#profile .progress, #szukaj .progress, #tlumaczenia .progress, #serial .progress, #oczekiwane .progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important;background-color: #DEE0E2 !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}'+
                 'table.table-layout tbody tr td{color: #252525 !important;}'+
-                'table.table-layout tbody tr td[style*="background-color:#255180"],td[style*="background-color:#41d64b"] {background-color: #E7BA63 !important;}'+ //ostatnio zaktualizowane
+                'table.table-layout tbody tr td[style*="background-color:#255180"],td[style*="background-color:#41d64b"],td[style*="background-color:#3399ff"] {background-color: #E7BA63 !important;}'+ //ostatnio zaktualizowane
                 'table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: #252525 !important;}'+ //ilość oczekujących
                 '.progress > span > span {color: #252525 !important;}'+ //procenty ukończenia
                 'table.table-layout tbody tr td{border-top: 1px solid #ffffff !important;border-left: 1px solid #ffffff !important;border-right: 1px solid #ffffff !important;border-bottom: 1px solid #bbbbbb !important;padding-top: 2px !important;padding-bottom: 2px !important;}'+
@@ -1657,13 +1780,14 @@ var misc = {
                 'section#content .clear ~ .tbl .infoColumn0{background-color:#DFE2E5 !important;}'+
                 'section#content .clear ~ .tbl .infofooter{background-color:#ECEEEF !important;color:#000000 !important;border-top: 1px solid #BBBBBB !important;}'+
                 'section#content .tbl .avatar{border-right: 1px solid #BBBBBB !important;}'+
-                'section#content .tbl div[style*="background-color: #21262b"] .subtitle .sub h3{color: #FFFFFF !important;}'+
-                'section#content .tbl .mark{color: #FFFFFF !important;}'+
+                '#komentarze section#content .tbl .subtitle .sub h3{color: #FFFFFF !important;}'+
+                '#komentarze section#content .tbl .mark{color: #FFFFFF;}'+
                 'textarea{background-color: #FFFFFF !important;color: #000000 !important;}'+
-                'div[style*="background-color: #21262b"]{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;line-height: inherit !important;}'+ //górna belka z datą i oceną
+                '#komentowane-header{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;line-height: inherit !important;}'+ //górna belka z datą i oceną
                 'section#content>.page>div[style*="margin-left:"]{border-left:1px solid #000000; border-top:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;margin-left:0px !important;padding-left: 15px;}'+
                 'form#userForm{border-left:1px solid #000000; border-bottom:1px solid #000000; border-right:1px solid #000000; background-color: #FFFFFF;}'+
                 '.tresc2 div[style*="background-color: #292f35"]{background-color: #FFFFFF !important;}'+ //cytat
+                '#komentarze section#content .tbl_out .mark, #komentarze section#content .tbl_out .subtitle .sub h3 {color: #545d62 !important;}'+ //ocena całości, releasy
                 /**artykuły*/
                 '#jc{background: none repeat scroll 0px 0px #DFE2E5; border: 1px solid #000000;}'+
                 '#jc .rbox{background-color: #DFE2E5;}'+
@@ -1686,16 +1810,14 @@ var misc = {
                 '.serialNapisy .moreInfo {background-color: #DEE0E2 !important;}'+
                 '.serialNapisy .infofootertab {color: #000000 !important; background-color: #DEE0E2 !important; border-top: 1px solid #BBBBBB !important;}'+
                 '#serial section#content .tbl_top_powiadomienia .head_r label[style*="background-image:none"] {background-image:none !important;}'+
-                '#serial section#content span[style*="color:#2b68ab"] {color: transparent !important;}'+
+                '#serial section#content span[style*="color:#5d93d3"] {color: transparent !important;}'+
                 /**n24 helper*/
                 'table.table-layout tbody tr.odd td[data-n24h-star]{background-image: url('+icons.staroff+'), linear-gradient(#FFFFFF, #DEE0E2) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
                 'table.table-layout tbody tr.even td[data-n24h-star]{background-image: url('+icons.staroff+'), linear-gradient(#E1E1E1, #ECECEC) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
                 'table.table-layout tbody tr.odd td[data-n24h-star="on"]{background-image: url('+icons.staron+'), linear-gradient(#FFFFFF, #DEE0E2) !important;}'+
                 'table.table-layout tbody tr.even td[data-n24h-star="on"]{background-image: url('+icons.staron+'), linear-gradient(#E1E1E1, #ECECEC) !important;}'+
-                'table.table-layout tbody tr.odd td[data-n24h-star="auign"]{background-image: url('+icons.starign+'), linear-gradient(#FFFFFF, #DEE0E2) !important;}'+
-                'table.table-layout tbody tr.even td[data-n24h-star="auign"]{background-image: url('+icons.starign+'), linear-gradient(#E1E1E1, #ECECEC) !important;}'+
-                'table.table-layout tbody tr.odd td[data-n24h-star="trign"]{background-image: url('+icons.starign+'), linear-gradient(#FFFFFF, #DEE0E2) !important;}'+
-                'table.table-layout tbody tr.even td[data-n24h-star="trign"]{background-image: url('+icons.starign+'), linear-gradient(#E1E1E1, #ECECEC) !important;}'+
+                'table.table-layout tbody tr.odd td[data-n24h-star="auign"], table.table-layout tbody tr.odd td[data-n24h-star="trign"], table.table-layout tbody tr.odd td[data-n24h-star="autit"]{background-image: url('+icons.starign+'), linear-gradient(#FFFFFF, #DEE0E2) !important;}'+
+                'table.table-layout tbody tr.even td[data-n24h-star="auign"], table.table-layout tbody tr.even td[data-n24h-star="trign"], table.table-layout tbody tr.even td[data-n24h-star="autit"]{background-image: url('+icons.starign+'), linear-gradient(#E1E1E1, #ECECEC) !important;}'+
                 'th#n24h_tr_favhead{background-image: url('+icons.staron+'), linear-gradient(#2369B0, #104694, #2167AF) !important;background-repeat: no-repeat !important;background-position: center !important;}'+
                 '#n24h_tr_input_search, #n24h_tr_input_new{color: #000000 !important; border: 1px solid #CECFCF !important;}'+
                 '#n24h_tr_input_clear, #n24h_tr_input_add, #n24h_tr_input_remove {background-color: #F9F9F9 !important;color: #000000 !important; border: 1px solid #CECFCF !important;}'+
@@ -1730,6 +1852,25 @@ var misc = {
             targets[i].removeAttribute('target');
         }
     },
+    /**
+        Usuń przyciski "Dołącz..."
+    */
+    killConnectButtons: function() {
+        var divs=document.querySelectorAll('div.cbConnectButtons');
+        for (var i=0;i<divs.length;i++)
+        {
+            divs[i].parentNode.removeChild(divs[i]);
+        }
+    },
+    fixThings: function() {
+        if(location.pathname.toLowerCase() === '/napisy-podglad') {
+            var li=document.querySelector('div.list li>a[href*="/napisy-podglad?"]');
+            if (li) {
+                li.setAttribute('href', li.getAttribute('href').replace(/napisy-podglad/, 'komentarze'));
+                li.textContent='Skomentuj';
+            }
+        }
+    },
     init: function() {
         if (options.getValue('fixsearch', false))
             misc.fixSearch();
@@ -1739,6 +1880,9 @@ var misc = {
             misc.killIMDBInfo();
         if (options.getValue('usesmallmenubuttons', false))
             misc.shrinkButtons();
+        if (options.getValue('removeconnectbuttons', false))
+            misc.killConnectButtons();
+        misc.fixThings();
     }
 };
 
