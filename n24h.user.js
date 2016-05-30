@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.5
+// @version         1.5.1
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -968,12 +968,14 @@ var tlumaczenia = {
         if (title != null && title != '' && !db.exists(shows_db, title)) {
             if (db.add(shows_db, title))
             {
-                document.querySelector('input#n24h_tr_input_new').value='';
-                var select=document.querySelector('select#n24h_tr_shows_list');
-                var option=document.createElement('option');
-                option.text=title;
-                option.setAttribute('class', 'n24h_tr_option');
-                select.add(option);
+                if (!options.getValue('turnofffavpanel', false)) {
+                    document.querySelector('input#n24h_tr_input_new').value='';
+                    var select=document.querySelector('select#n24h_tr_shows_list');
+                    var option=document.createElement('option');
+                    option.text=title;
+                    option.setAttribute('class', 'n24h_tr_option');
+                    select.add(option);
+                }
                 tlumaczenia.sortTable();
             }
         }
@@ -993,13 +995,15 @@ var tlumaczenia = {
         {
             if (db.remove(shows_db, title))
             {
-                var select=document.querySelector('select#n24h_tr_shows_list');
-                for (var i=0;i<select.length;i++)
-                    if (select[i].value.toUpperCase()==title.toUpperCase())
-                    {
-                        select.remove(i);
-                        break;
-                    }
+                if (!options.getValue('turnofffavpanel', false)) {
+                    var select=document.querySelector('select#n24h_tr_shows_list');
+                    for (var i=0;i<select.length;i++)
+                        if (select[i].value.toUpperCase()==title.toUpperCase())
+                        {
+                            select.remove(i);
+                            break;
+                        }
+                }
             }
             tlumaczenia.sortTable();
         }
