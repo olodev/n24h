@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.5.1
+// @version         1.5.2
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
