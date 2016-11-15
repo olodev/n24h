@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.5.2
+// @version         1.5.3
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -9,7 +9,7 @@
 // @downloadURL     https://github.com/olodev/n24h/raw/master/n24h.user.js
 // @updateURL       https://github.com/olodev/n24h/raw/master/n24h.meta.js
 // @homepage        https://github.com/olodev/n24h
-// @grant           none
+// @grant           GM_registerMenuCommand
 // @run-at          document-start
 // ==/UserScript==
 
@@ -50,7 +50,7 @@ var utils = {
         document.head.appendChild(style);
     },
     getSkin: function() {
-        if (document.querySelector('ul.avatar-main-menu-szare'))
+        if (document.querySelector('ul.menu.avatar-main-menu.avatar-menu-icons.white'))
             return 1;
         if (document.querySelector('div.rt-social-buttons'))
             return 2;
@@ -465,13 +465,11 @@ var options = {
                  '#n24h_options_gear .social-button-text {'+
                     'margin-left: 5px;'+
                     '}';
-        var skin_id=utils.getSkin();
-        if (!skin_id)
-            return;
         utils.insertcss(css);
+        var skin_id=utils.getSkin();
         switch (skin_id) {
             case 1:
-                var ul=document.querySelector('ul.avatar-main-menu-szare');
+                var ul=document.querySelector('ul.menu.avatar-main-menu.avatar-menu-icons.white');
                 if (!ul)
                     return;
                 utils.insertcss(css1);
@@ -600,6 +598,10 @@ var options = {
         //usuń pomijane tłumaczenia
         var opt_btn_killigntr=document.getElementById('n24h_opt_btn_ignorekill');
         opt_btn_killigntr.addEventListener('click', options.btnKillIgnTr, false);
+
+        if (typeof GM_registerMenuCommand !== "undefined") {
+            GM_registerMenuCommand("napisy24.pl helper opcje", options.show);
+        }
     }
 };
 
