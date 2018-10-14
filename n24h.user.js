@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.6
+// @version         1.6.1
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -80,11 +80,10 @@
             return value;
         },
         removeItem: function(name) {
-            let value;
             if (typeof GM_deleteValue !== 'undefined') {
-                value=GM_deleteValue(name);
+                GM_deleteValue(name);
             } else {
-                value=localStorage.removeItem(name);
+                localStorage.removeItem(name);
             }
         }
     };
@@ -193,6 +192,14 @@
         */
         show: function() {
             options.fillPanels();
+            let body=document.querySelector('body');
+            let bstyle=body.getAttribute('style');
+            if ((bstyle!=null)&&(bstyle!="")) {
+                bstyle='overflow-y: hidden;'+bstyle
+            } else {
+                bstyle='overflow-y: hidden;';
+            }
+            body.setAttribute('style', bstyle);
             let panel=document.querySelector('div.n24h_options_background');
             panel.setAttribute('style', 'display:block');
         },
@@ -200,6 +207,10 @@
             Ukryj panel opcji
         */
         hide: function() {
+            let body=document.querySelector('body');
+            let bstyle=body.getAttribute('style');
+            bstyle=bstyle.replace(/overflow-y: hidden;/g, '');
+            body.setAttribute('style', bstyle);
             let panel=document.querySelector('div.n24h_options_background');
             panel.setAttribute('style', 'display:none');
         },
