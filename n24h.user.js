@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.6.1
+// @version         1.6.2
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -1690,8 +1690,13 @@
                 'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([style*="background-color:#3399ff"]){background-color: #B5B5B5 !important;}'+
                 'table.table-layout tbody tr td{border-bottom: 1px solid #A0A0A0 !important;border-right: 1px solid #A0A0A0 !important;color: #000000 !important;}'+
                 'table.table-layout {border: 1px solid #A0A0A0 !important;}'+
-                '.progress div{background-color: #A0A0A0 !important;}'+
+                '.progress div{background-color: #A0A0A0 !important; background-image: none !important;}'+
                 '#tlumaczenia .progress {background-color: #676767 !important; background-image:none;}'+
+                '.progress2 {background-image: none !important;background-color: #676767 !important;bottom: 8px !important;top: 10px !important;height: 20px;overflow: hidden;border-radius: 4px;box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);position: absolute;left: 8px;right: 8px;text-align: center;background-repeat: no-repeat;margin-bottom: 20px;}'+
+                '#profile .progress2 div, #szukaj .progress2 div, #tlumaczenia .progress2 div, #serial .progress2 div {background-color: #A0A0A0 !important; background-image: none !important;top: 0px !important;left: 0px !important;right: 0px !important;}'+
+                '#oczekiwane .progress2 > span, #profile .progress2 > span, #szukaj .progress2 > span, #tlumaczenia .progress2 > span{position: absolute;bottom: 0px;left: 0px;right: 0px;text-align: center;z-index: 3;font-size: 10px;letter-spacing: 1px;}'+
+                '#oczekiwane .progress2 > span > span, #profile .progress2 > span > span, #szukaj .progress2 > span > span, #tlumaczenia .progress2 > span > span {display: inline-block;text-align: center;font-weight: 700;font-size: 9px;width: 36px;letter-spacing: 1px;color: #FFFFFF !important;text-shadow: 0 0 3px #000, 0 0 3px #000;}'+
+                '.progress2 span{opacity: 1 !important;}'+
                 '#tlumaczenia nav ul li.menu_add_tlum a{background-color: #2B68AB;border-bottom: 4px solid #2B68AB;background-position: 21px 12px; color: #FFFFFF;}'+
                 'nav ul li.menu_add_tlum a:hover{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 44px;height: 42px;background-position: 21px 12px;}'+
                 'nav ul li.menu_add_tlum a:active{border-bottom: 4px solid #1B4A7E;color: #CCCCCC;background-color: #2B68AB;line-height: 48px;height: 42px;background-position: 21px 12px;text-shadow:none;filter:none;border-top:none;}'+
@@ -1814,12 +1819,18 @@
                 'table.table-layout thead tr th{background: linear-gradient(#2369B0, #104694, #2167AF) !important;color: #DDDDDD !important;border: solid 1px white !important;line-height: inherit !important;}'+ //nagłówek tabelki
                 'table.table-layout tbody tr.odd td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([style*="background-color:#3399ff"]):not([data-n24h-star]){background: linear-gradient(#FFFFFF, #DEE0E2) !important;}'+//nie nadpisuj aktualizacji
                 'table.table-layout tbody tr.even td:not([style*="background-color:#255180"]):not([style*="background-color:#DD7665"]):not([style*="background-color:#41d64b"]):not([style*="background-color:#3399ff"]):not([data-n24h-star]){background: linear-gradient(#E1E1E1, #ECECEC) !important;}'+
-                '.progress div{background-color: #E7BA63 !important;}'+
+                '.progress div {background-color: #E7BA63 !important; background-image: none !important;}'+
                 '#profile .progress, #szukaj .progress, #tlumaczenia .progress, #serial .progress, #oczekiwane .progress {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important;background-color: #DEE0E2 !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;}'+
+                '.progress2 {background-image: linear-gradient(#FFFFFF, #DEE0E2) !important;background-color: #DEE0E2 !important; border-right: 1px solid #D3D6D7 !important;border-bottom: 1px solid #D3D6D7 !important;bottom: 0px !important;top: 0px !important;margin: auto;height: 20px;overflow: hidden;border-radius: 4px;box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);position: absolute;left: 8px;right: 8px;text-align: center;background-repeat: no-repeat;}'+
+                '#profile .progress2 div, #szukaj .progress2 div, #tlumaczenia .progress2 div, #serial .progress2 div {background-color: #E7BA63 !important; background-image: none !important;top: 0px !important;left: 0px !important;right: 0px !important;}'+
+                '#oczekiwane .progress2 > span, #profile .progress2 > span, #szukaj .progress2 > span, #tlumaczenia .progress2 > span{position: absolute;bottom: 0px;left: 0px;right: 0px;text-align: center;z-index: 3;text-shadow: rgb(0, 0, 0) 0px 0px 3px, rgb(0, 0, 0) 0px 0px 3px;font-size: 10px;letter-spacing: 1px;color: #fff !important;}'+
+                '#oczekiwane .progress2 > span > span, #profile .progress2 > span > span, #szukaj .progress2 > span > span, #tlumaczenia .progress2 > span > span {display: inline-block;text-align: center;font-weight: 700;font-size: 9px;width: 36px;letter-spacing: 1px;}'+
+                '.progress2 span{opacity: 1 !important;}'+
                 'table.table-layout tbody tr td{color: #252525 !important;}'+
                 'table.table-layout tbody tr td[style*="background-color:#255180"],td[style*="background-color:#41d64b"],td[style*="background-color:#3399ff"] {background-color: #E7BA63 !important;}'+ //ostatnio zaktualizowane
                 'table.table-layout tbody tr td div span[style*="color: white"], span[style*="color: #feee39"]{color: #252525 !important;}'+ //ilość oczekujących
-                '.progress > span > span {color: #252525 !important;}'+ //procenty ukończenia
+                '.progress > span > span, .progress2 > span > span {color: #252525 !important; text-shadow: none !important;}'+ //procenty ukończenia
+                '.progress > span, .progress2 > span {top: -3px !important;}'+
                 'table.table-layout tbody tr td{border-top: 1px solid #ffffff !important;border-left: 1px solid #ffffff !important;border-right: 1px solid #ffffff !important;border-bottom: 1px solid #bbbbbb !important;padding-top: 2px !important;padding-bottom: 2px !important;}'+
                 'table.table-layout tbody tr:not(.serialNapisy):not(#n24h_emptyrow):hover td{border-top: solid 2px #E7BA63 !important;border-bottom: solid 2px #E7BA63 !important;border-left: solid 1px #E7BA63 !important;border-right: solid 1px #E7BA63 !important;padding-top: 1px !important;padding-bottom: 1px !important;}'+
                 'table.table-layout {border-collapse: initial !important;}'+
