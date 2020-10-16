@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            napisy24.pl helper
-// @version         1.6.2
+// @version         1.6.3
 // @author          KO
 // @description     Dodaje kilka ciekawych funkcji na stronie napisy24.pl
 // @namespace       KO/napisy24_helper
@@ -1086,7 +1086,7 @@
                 'height: 25px;'+
                 '}'+
                 '#tlumaczenia #n24h_tr_input_clear:hover,#tlumaczenia #n24h_tr_input_add:hover,#tlumaczenia #n24h_tr_input_remove:hover{'+
-                'border-color:rgba(82, 168, 236, 0.8);outline:0;outline:thin dotted \9;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);'+
+                'border-color:rgba(82, 168, 236, 0.8);outline:0;outline:thin dotted 9;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);'+
                 '}'+
                 '#tlumaczenia #n24h_tr_shows_list{'+
                 'width: auto;'+
